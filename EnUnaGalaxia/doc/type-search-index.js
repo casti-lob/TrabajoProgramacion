@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.simulacro","l":"Categoria"},{"p":"com.simulacro","l":"Menus"},{"p":"com.simulacro","l":"Parking"},{"p":"com.simulacro","l":"ParkingException"}];updateSearchResults();
