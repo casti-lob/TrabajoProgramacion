@@ -56,6 +56,12 @@ public class NotaAlarma extends Nota implements Activable {
 	public String toString() {
 		return super.toString()+"Fecha alarma"+this.fechaAlarma+" alarma activada " +this.activado;
 	}
+	@Override
+	public NotaAlarma clone() {
+		NotaAlarma resultado= new NotaAlarma();
+		resultado.activado=this.activado;
+		return resultado;
+	}
 	
 	
 	
