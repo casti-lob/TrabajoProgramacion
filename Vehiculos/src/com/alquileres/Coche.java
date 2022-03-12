@@ -9,7 +9,11 @@ public class Coche extends Vehiculo {
 	public Coche(String matricula, String gamaVehiculo, LocalDate fechaSalida, String carburanteVehiculo)
 			throws VehiculoException {
 		super(matricula, gamaVehiculo, fechaSalida);
+		if(this.carburanteVehiculo== null) {
+			this.carburanteVehiculo=Carburante.DIESEL;
+		}else {
 		this.carburanteVehiculo = Carburante.valueOf(carburanteVehiculo.toUpperCase());
+		}
 	}
 
 	public String getCarburanteVehiculo() {
@@ -27,6 +31,7 @@ public class Coche extends Vehiculo {
 	
 	@Override
 	public double getPrecio() {
+		
 		return super.getPrecio()+this.carburanteVehiculo.getPrecio()*this.getFechaEntrada().until(getFechaSalida(), ChronoUnit.DAYS);
 	}
 	

@@ -6,10 +6,13 @@ import java.time.temporal.ChronoUnit;
 public class MicroBus extends Vehiculo {
 	
 	private int numPlazas;
-	private final double PRECIOPLAZA=5;
+	private static final double PRECIOPLAZA=5;
 	
 	public MicroBus(int numPlazas, String matricula, String gamaVehiculo, LocalDate fechaSalida) throws VehiculoException {
 		super(matricula, gamaVehiculo, fechaSalida);
+		if(this.numPlazas==0) {
+			throw new VehiculoException("Debe de establecer el numero de plazas");
+		}
 		this.numPlazas = numPlazas;
 	}
 

@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Furgoneta extends Vehiculo {
 	private int pma;
-	private final double PRECIOPESO =0.5;
+	private static final double PRECIOPESO =0.5;
 	
 	public Furgoneta(int pma, String matricula, String gamaVehiculo, LocalDate fechaSalida) throws VehiculoException {
 		super(matricula, gamaVehiculo, fechaSalida);

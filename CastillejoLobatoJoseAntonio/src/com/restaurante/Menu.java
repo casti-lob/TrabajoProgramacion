@@ -134,8 +134,8 @@ public class Menu {
 			
 			System.out.println("Introduce la graduacion del vino");
 			precio= Double.parseDouble(teclado.nextLine());
-			Vino añadirVino = new Vino(nombre, precio);
-			listaPlatos[posicion].setVinoRecomendado(añadirVino);
+			Vino anadirVino = new Vino(nombre, precio);
+			listaPlatos[posicion].setVinoRecomendado(anadirVino);
 			
 			
 			mensaje = "Vino añadido";

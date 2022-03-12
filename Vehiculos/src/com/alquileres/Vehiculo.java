@@ -46,8 +46,8 @@ public class Vehiculo {
 		this.fechaSalida = fechaSalida;
 	}
 
-	public Gama getGamaVehiculo() {
-		return gamaVehiculo;
+	public String getGamaVehiculo() {
+		return gamaVehiculo.toString();
 	}
 
 	public LocalDate getFechaEntrada() {
@@ -83,7 +83,7 @@ public class Vehiculo {
 	
 	public double getPrecio() {
 		if(this.fechaSalida==null) {
-			this.fechaSalida=LocalDate.now();
+			this.fechaSalida=fechaEntrada.plusDays(1);//sumamos un dia si la fecha de entrada es null
 		}
 		double resultado = gamaVehiculo.getPrecio()*(int)fechaEntrada.until(fechaSalida, ChronoUnit.DAYS);
 		return resultado;
