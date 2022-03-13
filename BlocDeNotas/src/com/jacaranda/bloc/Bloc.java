@@ -20,8 +20,10 @@ public class Bloc {
 		this.blocNotas= new Nota[NUMERO_NOTAS_MAXIMA];
 		
 	}
-	public String getBlocNotas(int indice) {
-		
+	public String getBlocNotas(int indice) throws BlocException {
+		if(indice>this.numNotas|| indice <0) {
+			throw new BlocException("La nota no existe");
+		}
 		return blocNotas[indice].toString();
 	}
 	//actualizar un texto de una nota existente
@@ -63,7 +65,10 @@ public class Bloc {
 		}
 	}
 	
-	
+	public void addNota(String texto) {
+		blocNotas[this.numNotas]=new Nota(texto);
+		this.numNotas+=1;
+	}
 	
 	public static int getNumeroNotasMaxima() {
 		return NUMERO_NOTAS_MAXIMA;
@@ -90,7 +95,7 @@ public class Bloc {
 	}
 	
 	
-	public String ordena() {
+	public String ordenaBloc() {
 		Nota notasOrdenadas[]= new Nota[this.numNotas];
 		for(int i=0;i<this.numNotas;i++) {
 			notasOrdenadas[i]=blocNotas[i];
@@ -99,6 +104,10 @@ public class Bloc {
 		Arrays.sort(notasOrdenadas);
 		
 		return notasOrdenadas.toString();
+	}
+	@Override
+	public String toString() {
+		return "Bloc [numNotas=" + numNotas + ", nombre=" + nombre +  "]";
 	}
 	
 	

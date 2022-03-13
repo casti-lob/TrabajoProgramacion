@@ -44,8 +44,11 @@ public class Nota implements Comparable<Nota>{
 	
 	//Si la fecha de creacion es igual a la de modificaci�n el resultad
 	//es false
-	public boolean isModificado() {
+	public boolean isModificado() throws Exception {
 		boolean modificado = true;
+		if(fechaCreacion==null||fechaUltimaModificacion==null) {
+			throw new Exception("Los parametros son nulos");
+		}
 		if(fechaCreacion.equals(fechaUltimaModificacion)) {
 			modificado = false;
 		}
@@ -62,16 +65,22 @@ public class Nota implements Comparable<Nota>{
 		return empty;
 	}
 	
-	public boolean isCreadoAnterior(Nota other) {
+	public boolean isCreadoAnterior(Nota other) throws Exception {
 		boolean resultado=false;
+		if(other.fechaCreacion==null || this.fechaCreacion==null) {
+			throw new Exception("Los parametros son nulos");
+		}
 		if(other.fechaCreacion.isBefore(this.fechaCreacion)) {//comparamos si un objeto nota es anterior a la creacion que otro objeto nota
 			resultado= true;
 		}
 		return resultado;
 	}
 	
-	public boolean isModificadoAnterior(Nota other) {
+	public boolean isModificadoAnterior(Nota other) throws Exception {
 		boolean resultado=false;
+		if(other.fechaUltimaModificacion==null || this.fechaUltimaModificacion==null) {
+			throw new Exception("Los parametros son nulos");
+		}
 		if(other.fechaUltimaModificacion.isBefore(this.fechaUltimaModificacion)) {//comparamos si un objeto nota es anterior a la modificacion de otro objeto nota
 			
 			resultado=true;
@@ -96,12 +105,7 @@ public class Nota implements Comparable<Nota>{
 		return Objects.equals(fechaCreacion, other.fechaCreacion) && Objects.equals(texto, other.texto);
 	}
 	
-	@Override
-	public String toString() {
-		return "Nota [codigo=" + codigo + ", texto=" + texto + ", fechaCreacion=" + fechaCreacion
-				+ ", fechaUltimaModificacion=" + fechaUltimaModificacion + "]";
-	}
-
+	
 	@Override
 	public int compareTo(Nota o) {
 		int resultado= this.codigo-o.codigo; //ordenamos por codigo 
@@ -110,5 +114,11 @@ public class Nota implements Comparable<Nota>{
 		return resultado;
 	}
 	
+	@Override
+	public String toString() {
+		return "Nota [codigo=" + codigo + ", texto=" + texto + ", fechaCreacion=" + fechaCreacion
+				+ ", fechaUltimaModificacion=" + fechaUltimaModificacion + "]";
+	}
+
 	
 }
