@@ -63,7 +63,7 @@ public class NotaAlarma extends Nota implements Activable {
 	}
 	@Override
 	public NotaAlarma clone() throws CloneNotSupportedException{
-		NotaAlarma nueva;
+		NotaAlarma nueva=null;
 		try {
 			nueva = new NotaAlarma(this.getTexto(), this.fechaAlarma, this.activado);
 		
@@ -73,7 +73,7 @@ public class NotaAlarma extends Nota implements Activable {
 		nueva.setFechaUltimaModificacion(this.getFechaUltimaModificacion());
 		} catch (NotaAlarmaException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace("Error");
+			System.out.println(e.getMessage());
 		}
 		return nueva;
 	
