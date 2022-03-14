@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Menu {
@@ -56,8 +57,8 @@ public class Menu {
 	}
 	
 	public static void menu() {
-		System.out.println("1. Alta de vehículo:\n"+
-				"2. Cálculo de precio de alquiler\n"+
+		System.out.println("1. Alta de vehï¿½culo:\n"+
+				"2. Cï¿½lculo de precio de alquiler\n"+
 				"3. Salir.\n"
 				
 				);
@@ -99,7 +100,7 @@ public class Menu {
 	
 	public static int encontrarVehiculo() {
 		boolean encontrado = false;
-		int resultado=-1;//nos indica la posición del vehiculo y si da -1 es que no hay vehiculo
+		int resultado=-1;//nos indica la posiciï¿½n del vehiculo y si da -1 es que no hay vehiculo
 		matricula();
 		for(int i=0;i<indiceLista&&encontrado==false;i++) {
 			if(vehiculosExplotacion[i].getMatricula().equals(matricula())) {
@@ -132,12 +133,14 @@ public class Menu {
 		
 	}
 	
-	public static LocalDate fechaSalida() {
-		LocalDate fechaSalida;
-		System.out.println("Introduce la fecha de salida");
-		fechaSalida= LocalDate.parse(teclado.nextLine());
-		fechaSalida= LocalDate.parse("YYYY-MM-DD");
+	public static LocalDate fechaSalida() {//no lee la fecha
 		
+		String fecha;
+		System.out.println("Introduce la fecha de salida");
+		fecha= teclado.nextLine();
+		LocalDate fechaSalida = LocalDate.parse(fecha);
+		System.out.println(fechaSalida);
+		 
 		return fechaSalida;
 		
 	}

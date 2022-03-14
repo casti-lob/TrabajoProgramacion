@@ -12,6 +12,7 @@ public class Pruebas {
 		n.addNota("dos");
 		n.addNota("tres");
 		System.out.println(n.ordenaBloc());
+		
 	}
 
 }

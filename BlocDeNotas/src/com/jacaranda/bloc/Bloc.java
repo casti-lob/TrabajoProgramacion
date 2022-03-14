@@ -97,13 +97,19 @@ public class Bloc {
 	
 	public String ordenaBloc() {
 		Nota notasOrdenadas[]= new Nota[this.numNotas];
+		String salida = "";
+		
 		for(int i=0;i<this.numNotas;i++) {
 			notasOrdenadas[i]=blocNotas[i];
 		}
-			
 		Arrays.sort(notasOrdenadas);
 		
-		return notasOrdenadas.toString();
+		for(int i=0;i<this.numNotas;i++) {
+			salida+= notasOrdenadas[i]+"\n";
+		}	
+		
+		
+		return salida;
 	}
 	@Override
 	public String toString() {

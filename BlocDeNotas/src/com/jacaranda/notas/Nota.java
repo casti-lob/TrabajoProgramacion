@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Nota implements Comparable<Nota>{
 	private static int codigoSiguiente=1;
-	private int codigo;
+	protected int codigo;
 	protected String texto;
 	private LocalDateTime fechaCreacion;
 	private LocalDateTime fechaUltimaModificacion;
@@ -20,6 +20,18 @@ public class Nota implements Comparable<Nota>{
 		this.fechaUltimaModificacion= this.fechaCreacion; // lo igualamos ya que si ponemos .now nos da una diferencia de segundos
 		
 	}
+	
+	protected void setFechaUltimaModificacion(LocalDateTime fechaUltimaModificacion) {
+		this.fechaUltimaModificacion = fechaUltimaModificacion;
+	}
+
+	protected void setFechaCreacion(LocalDateTime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	protected void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 
 	public String getTexto() {
 		return texto;
@@ -30,7 +42,7 @@ public class Nota implements Comparable<Nota>{
 		this.fechaUltimaModificacion=LocalDateTime.now();
 	}
 
-	public int getCodigo() {
+	protected int getCodigo() {
 		return codigo;
 	}
 
@@ -45,14 +57,8 @@ public class Nota implements Comparable<Nota>{
 	//Si la fecha de creacion es igual a la de modificaci�n el resultad
 	//es false
 	public boolean isModificado() throws Exception {
-		boolean modificado = true;
-		if(fechaCreacion==null||fechaUltimaModificacion==null) {
-			throw new Exception("Los parametros son nulos");
-		}
-		if(fechaCreacion.equals(fechaUltimaModificacion)) {
-			modificado = false;
-		}
-		return modificado;
+		return this.fechaCreacion.equals(this.fechaUltimaModificacion); 
+			
 	}
 	/*
 	 * Si la cadena es 0 emty es true
@@ -67,7 +73,7 @@ public class Nota implements Comparable<Nota>{
 	
 	public boolean isCreadoAnterior(Nota other) throws Exception {
 		boolean resultado=false;
-		if(other.fechaCreacion==null || this.fechaCreacion==null) {
+		if(other==null ) {
 			throw new Exception("Los parametros son nulos");
 		}
 		if(other.fechaCreacion.isBefore(this.fechaCreacion)) {//comparamos si un objeto nota es anterior a la creacion que otro objeto nota
@@ -78,7 +84,7 @@ public class Nota implements Comparable<Nota>{
 	
 	public boolean isModificadoAnterior(Nota other) throws Exception {
 		boolean resultado=false;
-		if(other.fechaUltimaModificacion==null || this.fechaUltimaModificacion==null) {
+		if(other==null ) {
 			throw new Exception("Los parametros son nulos");
 		}
 		if(other.fechaUltimaModificacion.isBefore(this.fechaUltimaModificacion)) {//comparamos si un objeto nota es anterior a la modificacion de otro objeto nota
@@ -109,7 +115,14 @@ public class Nota implements Comparable<Nota>{
 	@Override
 	public int compareTo(Nota o) {
 		int resultado= this.codigo-o.codigo; //ordenamos por codigo 
-		
+		if(o==null) {
+			resultado=-1;
+		}else {
+			resultado= this.texto.compareToIgnoreCase(o.texto);
+			if(resultado==0) {
+				resultado= this.fechaCreacion.compareTo(o.fechaCreacion);
+			}
+		}
 			
 		return resultado;
 	}

@@ -28,7 +28,10 @@ public class NotaAlarma extends Nota implements Activable {
 	}
 
 	private void setFechaAlarma(LocalDateTime fechaAlarma) throws NotaAlarmaException {
-		if(fechaAlarma.isBefore(getFechaUltimaModificacion())) {//se compara a la de modificación ya que es la fecha mas proxima
+		if(fechaAlarma==null) {
+			throw new NotaAlarmaException("La fecha de alarma no puede ser nula");
+		}
+		if(fechaAlarma.isBefore(this.getFechaCreacion())) {//se compara a la de modificaciï¿½n ya que es la fecha mas proxima
 			throw new NotaAlarmaException("No puedes poner una alarma para una fecha anterior a la de creacion");
 		}
 		
@@ -59,16 +62,21 @@ public class NotaAlarma extends Nota implements Activable {
 		return super.toString()+"Fecha alarma"+this.fechaAlarma+" alarma activada " +this.activado;
 	}
 	@Override
-	public NotaAlarma clone() {
-		NotaAlarma resultado = null;
+	public NotaAlarma clone() throws CloneNotSupportedException{
+		NotaAlarma nueva;
 		try {
-			resultado = new NotaAlarma(this.texto, this.fechaAlarma, this.activado);
+			nueva = new NotaAlarma(this.getTexto(), this.fechaAlarma, this.activado);
+		
+		nueva.minutosRepetir= this.minutosRepetir;
+		nueva.setCodigo(getCodigo());
+		nueva.setFechaCreacion(this.getFechaCreacion());
+		nueva.setFechaUltimaModificacion(this.getFechaUltimaModificacion());
 		} catch (NotaAlarmaException e) {
-			
-			System.out.println(e.getMessage());;
+			// TODO Auto-generated catch block
+			e.printStackTrace("Error");
 		}
-		resultado.activado=this.activado;
-		return resultado;
+		return nueva;
+	
 	}
 	
 	
