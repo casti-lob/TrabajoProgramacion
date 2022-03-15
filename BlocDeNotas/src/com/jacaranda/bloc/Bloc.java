@@ -1,11 +1,14 @@
 package com.jacaranda.bloc;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
 import com.jacaranda.notas.Nota;
 import com.jacaranda.notas.NotaAlarma;
+import com.jacaranda.notas.NotaAlarmaException;
 
 public class Bloc {
 	private static final int NUMERO_NOTAS_MAXIMA=100;
@@ -28,7 +31,7 @@ public class Bloc {
 	}
 	//actualizar un texto de una nota existente
 	public void updateNota(int numero, String texto) throws BlocException {
-		if(numero>=this.numNotas) {
+		if(numero>=this.numNotas|| numero <0) {
 			throw new BlocException("Nota no existente");
 		}else {
 			blocNotas[numero].setTexto(texto);
@@ -37,7 +40,7 @@ public class Bloc {
 	}
 	
 	public void activa(int numero) throws BlocException {
-		numero-=1;//se le resta 1 para poder indicar el indice del array
+		
 		if(numero>this.numNotas|| numero <0) { //comprobamos que los rangos son correctos
 			throw new BlocException("La nota no existe");
 		}else if (blocNotas[numero]instanceof NotaAlarma) {//comprobamos si el objeto esta instanciado a notaAlarma
@@ -52,7 +55,6 @@ public class Bloc {
 	}
 	
 	public void desactiva(int numero) throws BlocException{
-		numero-=1;//se le resta 1 para poder indicar el indice del array
 		if(numero>this.numNotas|| numero <0) {//comprobamos que los rangos son correctos
 			throw new BlocException("La nota no existe");
 		}else if(blocNotas[numero]instanceof NotaAlarma) {//comprobamos si el objeto esta instanciado a notaAlarma
@@ -65,10 +67,42 @@ public class Bloc {
 		}
 	}
 	
-	public void addNota(String texto) {
+	public void addNota(String texto) throws BlocException {
+		if(numNotas==NUMERO_NOTAS_MAXIMA) {
+			throw new BlocException("Array completo");
+		}
 		blocNotas[this.numNotas]=new Nota(texto);
 		this.numNotas+=1;
 	}
+	
+	public void addNota(String texto, LocalDateTime fechaAlarma, boolean activado) throws BlocException {
+		if(numNotas==NUMERO_NOTAS_MAXIMA) {
+			throw new BlocException("Array completo");
+		}
+		try {
+			blocNotas[this.numNotas]=new NotaAlarma(texto,fechaAlarma,activado);
+			this.numNotas+=1;
+		} catch (NotaAlarmaException e) {
+			
+			throw new BlocException("Error al crear una nota con alarma");
+		}
+		
+	}
+	
+	public void addNota(String texto, LocalDateTime fechaAlarma, int minutosRepetir) throws BlocException {
+		if(numNotas==NUMERO_NOTAS_MAXIMA) {
+			throw new BlocException("Array completo");
+		}
+		try {
+			blocNotas[this.numNotas]=new NotaAlarma(texto,fechaAlarma,minutosRepetir);
+			this.numNotas+=1;
+		} catch (NotaAlarmaException e) {
+			
+			throw new BlocException("Error al crear una nota con alarma");
+		}
+		
+	}
+	
 	
 	public static int getNumeroNotasMaxima() {
 		return NUMERO_NOTAS_MAXIMA;
@@ -111,6 +145,7 @@ public class Bloc {
 		
 		return salida.toString();
 	}
+	
 	@Override
 	public String toString() {
 		return "Bloc [numNotas=" + numNotas + ", nombre=" + nombre +  "]";

@@ -1,10 +1,11 @@
 package com.jacaranda.notas;
 
 import com.jacaranda.bloc.Bloc;
+import com.jacaranda.bloc.BlocException;
 
 public class Pruebas {
 
-	public static void main(String[] args) throws NotaAlarmaException {
+	public static void main(String[] args) throws NotaAlarmaException, BlocException {
 		// TODO Auto-generated method stub
 		Bloc n = new Bloc("ddd!");
 		System.out.println(n);
