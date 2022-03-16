@@ -12,28 +12,54 @@ public class Libro {
 	private static int codigo;
 	private int codigoLibro;
 	
-	public Libro(String titulo, String autor, String editorial) {
+	public Libro(String titulo, String autor, String editorial) throws LibroException {
 		super();
-		this.titulo = titulo;
-		this.autor = autor;
+		try {
+			
+		
+		setTitulo(titulo);
+		setAutor(autor);
 		this.editorial = editorial;
 		this.fechaEdicion= null;
 		setIsbn();
 		this.codigoLibro = codigo++;
+		} catch (Exception e) {
+			throw new LibroException("Error al crear el libro");
+		}
 	}
 
-	public Libro(String titulo, String autor) {
+	public Libro(String titulo, String autor) throws LibroException {
 		super();
-		this.titulo = titulo;
-		this.autor = autor;
+		try {
+			
+		 
+		setTitulo(titulo);
+		setAutor(autor);
 		this.editorial=null;
 		this.fechaEdicion=null;
 		setIsbn();
 		this.codigoLibro= codigo++;
+		}catch (Exception e) {
+			throw new LibroException("Error al crear el libro");
+		}
 	}
 
 	public String getEditorial() {
 		return editorial;
+	}
+	
+	private void setTitulo(String titulo) throws LibroException {
+		if(titulo==null) {
+			throw new LibroException("El titulo no puede ser nulo");
+		}
+		this.titulo = titulo;
+	}
+
+	private void setAutor(String autor) throws LibroException {
+		if(autor==null) {
+			throw new LibroException("El autor no puede ser nulo");
+		}
+		this.autor = autor;
 	}
 
 	public void setEditorial(String editorial) {
