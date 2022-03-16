@@ -10,6 +10,14 @@ public class LibroPapel extends Libro {
 		this.precio = precio;
 		
 	}
+	
+	public double getPeso() {
+		return peso;
+	}
+
+	public double getPrecio() {
+		return precio;
+	}
 
 	@Override
 	public String toString() {

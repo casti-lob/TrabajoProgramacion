@@ -1,6 +1,7 @@
 package com.libreria;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Libro {
@@ -123,6 +124,12 @@ public class Libro {
 		return solucion;
 		
 		
+	}
+	
+	public int numDiasEntreLibros(Libro other) {
+		int dias; //No esta bien
+		dias= (int) this.fechaEdicion.until(other.getFechaEdicion(),ChronoUnit.DAYS);
+		return dias;
 	}
 
 	@Override
