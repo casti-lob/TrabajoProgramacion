@@ -11,7 +11,10 @@ public class Tweet extends Publicacion {
 
 	@Override
 	protected void setTexto(String texto) throws PublicacionException {
-		if(texto.length()>50) {
+		if(texto==null) {
+			throw new PublicacionException("Texto nulo");
+		}
+		else if(texto.length()>50) {
 			throw new PublicacionException("Extension  maxima 50");
 		}else {
 			this.texto =texto;
@@ -20,9 +23,9 @@ public class Tweet extends Publicacion {
 	}
 	
 	private void setValoracion(String valoracion) {
-		valoracion= valoracion.toUpperCase();
+		setValoracion(valoracion);
+		setValoracion(valoracion);
 		
-		this.valoracion= Valoraciones.valueOf(valoracion).getValor()*2;
 	}
 
 	@Override

@@ -14,7 +14,10 @@ public class Post extends Publicacion {
 	
 	@Override
 	protected void setTexto(String texto) throws PublicacionException {
-		if(texto.equals("")) {
+		if(texto==null) {
+			
+		}
+		else if(texto.equals("")) {
 			throw new PublicacionException("No puede estar en blanco");
 		}else {
 			this.texto =texto;
@@ -23,9 +26,8 @@ public class Post extends Publicacion {
 
 	}
 	private void setValoracion(String valoracion) {
-		valoracion= valoracion.toUpperCase();
-		this.numeroLecturas+=1;
-		this.valoracion= Valoraciones.valueOf(valoracion).getValor()*2;
+		setValoracion(valoracion);
+		setValoracion(valoracion);
 	}
 	
 	@Override

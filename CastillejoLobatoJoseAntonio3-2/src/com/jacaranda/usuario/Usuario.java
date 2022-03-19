@@ -17,10 +17,14 @@ public class Usuario {
 		return login;
 	}
 	//Para cambiar la contraseña tiene que comprobar el usuario y el pass
-	public boolean setPass(String login,String pass)  {
+	public boolean setPass(String passAntigua,String passNueva)  {
 		boolean fechaModificada=false;
-		if(this.login.equals(login)&& this.pass.equals(pass)) {
-			this.pass = pass;
+		if(passNueva==null) {
+			//si es null la nueva pass retorna false
+		}
+		else if(this.pass.equals(passAntigua)) {
+			
+			this.pass =passNueva;
 			fechaModificada=true;
 		}
 		return fechaModificada;

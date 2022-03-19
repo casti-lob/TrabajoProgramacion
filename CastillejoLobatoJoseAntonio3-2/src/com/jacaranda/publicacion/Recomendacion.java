@@ -16,7 +16,10 @@ public class Recomendacion extends Publicacion {
 
 	@Override
 	protected void setTexto(String texto) throws PublicacionException {
-		if(texto.length()>200&& texto.length()<100) {
+		if(texto==null) {
+			throw new PublicacionException("Texto nulo");
+		}
+		else if(texto.length()>200&& texto.length()<100) {
 			throw new PublicacionException("Extension minima 100 y maxima 200");
 		}else {
 			this.texto =texto;

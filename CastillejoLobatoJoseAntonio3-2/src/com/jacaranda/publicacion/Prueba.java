@@ -7,7 +7,9 @@ public class Prueba {
 	public static void main(String[] args) throws PublicacionException {
 		// TODO Auto-generated method stub
 		Usuario u=new Usuario("jose", "jjj");
-		Valorable p = new Tweet("lll",u); 
+		System.out.println(u.setPass("jjj", null));
+		Publicacion p = new Recomendacion("dddd", u,3);
+		System.out.println(p);
 			
 			
 		

@@ -14,7 +14,7 @@ public abstract class Publicacion implements Valorable ,Comparable<Publicacion> 
 	
 	public Publicacion(String texto, Usuario user) throws PublicacionException {
 		super();
-		setTexto(texto);;
+		setTexto(texto);
 		this.user =user;
 		this.fechaCreacion= LocalDateTime.now();
 		setValoracion(texto);
@@ -60,14 +60,19 @@ public abstract class Publicacion implements Valorable ,Comparable<Publicacion> 
 	}
 	
 	private void setValoracion(String valoracion) {
-		valoracion= valoracion.toUpperCase();
+		if(valoracion==null) {
+			this.valoracion=0;
+		}else {
 		
-		this.valoracion= Valoraciones.valueOf(valoracion).getValor();
+			
+			this.valoracion+= Valoraciones.valueOf(valoracion.toUpperCase()).getValor();
+		}
+		
 	}
 	
 	public boolean Valorar(String texto) {
 		boolean valorado=false; //Por defecto no esta valorado
-		if(texto.equals(Valoraciones.SUPERBUENA)||texto.equals(Valoraciones.MUYBUENA)||texto.equals(Valoraciones.BUENA)||texto.equals(Valoraciones.NORMAL)||texto.equals(Valoraciones.REGULAR)||texto.equals(Valoraciones.MUYMALA)) {
+		if(this.valoracion!=0){
 			valorado=true;
 		}
 		return valorado;

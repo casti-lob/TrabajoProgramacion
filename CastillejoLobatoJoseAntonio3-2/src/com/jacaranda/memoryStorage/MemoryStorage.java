@@ -35,7 +35,7 @@ public class MemoryStorage {
 	}
 	
 	public void addUsuario(String usu,String pass) throws MemoryStorageException {
-		if(posicionUsuario(usu)==-1) {
+		if(posicionUsuario(usu)!=-1 && usu.equals(listaUsuarios[posicionUsuario(usu)].getLogin())) {
 			throw new MemoryStorageException("Usuario repetido");
 		}else {
 			listaUsuarios[numUsuariosActuales]=new Usuario(usu, pass);
@@ -70,5 +70,45 @@ public class MemoryStorage {
 		}
 	}
 	
+	public String mostrarListaPublicaciones() {
+		StringBuilder lista= new StringBuilder();
+		for(int i=0;i<numPublicacionesActuales;i++) {
+			lista.append(listaPublicaciones[i]+"\n");
+		}
+		return lista.toString();
+	}
+	
+	public String mostrarTweets() {
+		StringBuilder lista = new StringBuilder();
+		for(int i= 0;i<numPublicacionesActuales;i++) {
+			if(listaPublicaciones[i]instanceof Tweet) {
+				lista.append(listaPublicaciones[i]+"\n");
+			}
+			
+		}
+		return lista.toString();
+	}
+	
+	public String mostrarPosts() {
+		StringBuilder lista = new StringBuilder();
+		for(int i= 0;i<numPublicacionesActuales;i++) {
+			if(listaPublicaciones[i]instanceof Post) {
+				lista.append(listaPublicaciones[i]+"\n");
+			}
+			
+		}
+		return lista.toString();
+	}
+	
+	public String mostrarRecomendacion() {
+		StringBuilder lista = new StringBuilder();
+		for(int i= 0;i<numPublicacionesActuales;i++) {
+			if(listaPublicaciones[i]instanceof Recomendacion) {
+				lista.append(listaPublicaciones[i]+"\n");
+			}
+			
+		}
+		return lista.toString();
+	}
 	
 }
