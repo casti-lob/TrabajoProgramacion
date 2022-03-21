@@ -33,6 +33,26 @@ public class MemoryStorage {
 		}
 		return posicion;
 	}
+	/*
+	 * Metodo generico
+	 * 
+	private<I> int posicionELemento(I[] array,I elemento, int longitud) {
+		int posicion=-1;//si es -1 el usuario no esa en la lista
+		for(int i=0;i<longitud||i!=-1;i++) {
+			if(array[i].equals(elemento)) {
+				posicion=i;
+			}
+		}
+		return posicion;
+		
+	}
+	public void addUsuario(String texto,String login) throws MemoryStorageException, PublicacionException {
+		Usuario aux= new Usuario(texto, null);
+		int posicion= posicionELemento(this.listaUsuarios, aux, this.numUsuariosActuales);
+		Publicacion paux = new Tweet(texto, this.listaUsuarios[posicion]);
+		int posicionPubicacion = posicionElemento(this.publicaciones, paux,this.numPublicacionesActuales;
+	}
+	*/
 	
 	public void addUsuario(String usu,String pass) throws MemoryStorageException {
 		if(posicionUsuario(usu)!=-1 && usu.equals(listaUsuarios[posicionUsuario(usu)].getLogin())) {
