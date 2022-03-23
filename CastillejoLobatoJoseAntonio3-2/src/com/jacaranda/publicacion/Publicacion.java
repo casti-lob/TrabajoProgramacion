@@ -14,11 +14,17 @@ public abstract class Publicacion implements Valorable ,Comparable<Publicacion> 
 	
 	public Publicacion(String texto, Usuario user) throws PublicacionException {
 		super();
-		setTexto(texto);
-		this.user =user;
-		this.fechaCreacion= LocalDateTime.now();
-		setValoracion(texto);
-		this.codigo= codigoSiguiente++;
+		try {
+			
+	
+			setTexto(texto);
+			this.user =user;
+			this.fechaCreacion= LocalDateTime.now();
+			this.valoracion=0;
+			this.codigo= codigoSiguiente++;
+		} catch (PublicacionException e) {
+			throw new PublicacionException("Error inesperado");
+		}
 	}
 
 	protected String getTexto() throws PublicacionException {
@@ -54,30 +60,23 @@ public abstract class Publicacion implements Valorable ,Comparable<Publicacion> 
 	public int getValoracion() {
 		return valoracion;
 	}
-
+	
 	public int getCodigo() {
 		return codigo;
 	}
 	
-	private void setValoracion(String valoracion) {
-		if(valoracion==null) {
-			this.valoracion=0;
+	
+	@Override
+	public void valorar(String valoracion) {
+		if(valoracion ==null) {
+			this.valoracion+=0;
 		}else {
-		
 			
-			this.valoracion+= Valoraciones.valueOf(valoracion.toUpperCase()).getValor();
+				this.valoracion+= Valoraciones.valueOf(valoracion.toUpperCase()).getValor();
+			
 		}
 		
 	}
-	
-	public boolean Valorar(String texto) {
-		boolean valorado=false; //Por defecto no esta valorado
-		if(this.valoracion!=0){
-			valorado=true;
-		}
-		return valorado;
-	}
-	
 	public String getLoginUsuario() {
 		return this.user.getLogin();
 	}
