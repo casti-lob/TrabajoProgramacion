@@ -25,8 +25,8 @@ public class MemoryStorage {
 	}
 	
 	public int posicionUsuario(String usu) {
-		int posicion=-1;//si es -1 el usuario no esa en la lista
-		for(int i=0;i<this.numUsuariosActuales||i!=-1;i++) {
+		int posicion=-1;//si es -1 el usuario no esta en la lista
+		for(int i=0;i<this.numUsuariosActuales && posicion==-1;i++) {
 			if(listaUsuarios[i].getLogin().equals(usu)) {
 				posicion=i;
 			}
@@ -55,17 +55,30 @@ public class MemoryStorage {
 	*/
 	
 	public void addUsuario(String usu,String pass) throws MemoryStorageException {
-		if(posicionUsuario(usu)!=-1 && usu.equals(listaUsuarios[posicionUsuario(usu)].getLogin())) {
-			throw new MemoryStorageException("Usuario repetido");
-		}else {
+			if(this.numUsuariosActuales>=NUM_MAXIMO_USUARIOS) {
+				throw new MemoryStorageException("Numero de usuarios completos");
+			}
+			else if(this.numUsuariosActuales >0) {
+				if(posicionUsuario(usu)!=-1) {
+					throw new MemoryStorageException("Usuario repetido");
+				}
+			}
 			listaUsuarios[numUsuariosActuales]=new Usuario(usu, pass);
 			this.numUsuariosActuales+=1;
-		}
+		
 	}
 	
 	public void addPublicacion(String texto, String usu) throws MemoryStorageException, PublicacionException {
-		if(posicionUsuario(usu)==-1) {
-			throw new MemoryStorageException("Usuario repetido");
+		if(this.numPublicacionesActuales>=NUM_MAXIMO_PUBLICACIONES) {
+			throw new MemoryStorageException("Numero de publicaciones completos");
+		}
+		else if(this.numUsuariosActuales==0) {
+			throw new MemoryStorageException("No existe usuarios");
+		}
+		else if(this.numUsuariosActuales >0) {
+			if(posicionUsuario(usu)==-1) {
+			throw new MemoryStorageException("Usuario no existente");
+			}
 		}else {
 			listaPublicaciones[numPublicacionesActuales]= new Tweet(texto,listaUsuarios[posicionUsuario(usu)]);
 			this.numPublicacionesActuales+=1;
@@ -73,8 +86,16 @@ public class MemoryStorage {
 	}
 	
 	public void addPublicacion(String texto, String usu,String t) throws MemoryStorageException, PublicacionException {
-		if(posicionUsuario(usu)==-1) {
-			throw new MemoryStorageException("Usuario repetido");
+		if(this.numPublicacionesActuales>=NUM_MAXIMO_PUBLICACIONES) {
+			throw new MemoryStorageException("Numero de publicaciones completos");
+		}
+		else if(this.numUsuariosActuales==0) {
+			throw new MemoryStorageException("No existe usuarios");
+		}
+		else if(this.numUsuariosActuales >0) {
+			if(posicionUsuario(usu)==-1) {
+			throw new MemoryStorageException("Usuario no existente");
+			}
 		}else {
 			listaPublicaciones[numPublicacionesActuales]= new Post(texto,listaUsuarios[posicionUsuario(usu)],t);
 			this.numPublicacionesActuales+=1;
@@ -82,8 +103,16 @@ public class MemoryStorage {
 	}
 	
 	public void addPublicacion(String texto, String usu,int t) throws MemoryStorageException, PublicacionException {
-		if(posicionUsuario(usu)==-1) {
-			throw new MemoryStorageException("Usuario repetido");
+		if(this.numPublicacionesActuales>=NUM_MAXIMO_PUBLICACIONES) {
+			throw new MemoryStorageException("Numero de publicaciones completos");
+		}
+		else if(this.numUsuariosActuales==0) {
+			throw new MemoryStorageException("No existe usuarios");
+		}
+		else if(this.numUsuariosActuales >0) {
+			if(posicionUsuario(usu)==-1) {
+			throw new MemoryStorageException("Usuario no existente");
+			}
 		}else {
 			listaPublicaciones[numPublicacionesActuales]= new Recomendacion(texto,listaUsuarios[posicionUsuario(usu)],t);
 			this.numPublicacionesActuales+=1;

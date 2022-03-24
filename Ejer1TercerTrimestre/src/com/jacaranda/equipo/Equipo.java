@@ -57,7 +57,33 @@ public class Equipo {
 		
 	}
 	
-	Iterator<>
+	public Equipo unionEquipo(Equipo other) {
+		Equipo resultado = new Equipo("");
+		for(ALumno a:this.listado) {
+			if(other.listado.contains(a)) {
+				try {
+					resultado.addAlumno(a);
+				} catch (EquipoException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return resultado;
+	}
+	
+	public Equipo unionNuevoEquipo(Equipo other) {
+		Equipo resultado = new Equipo("Nuevo Equipo");
+		for(ALumno a:this.listado) {
+			if(other.listado.contains(a)) {
+				try {
+					resultado.addAlumno(a);
+				} catch (EquipoException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return resultado;
+	}
 	@Override
 	public String toString() {
 		return "Equipo [nombre=" + nombre + ", listado=" + listado + "]";

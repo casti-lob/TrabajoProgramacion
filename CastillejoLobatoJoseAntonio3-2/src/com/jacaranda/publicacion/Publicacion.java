@@ -9,7 +9,7 @@ public abstract class Publicacion implements Valorable ,Comparable<Publicacion> 
 	private LocalDateTime fechaCreacion;
 	protected int valoracion;
 	private int codigo;
-	private static int codigoSiguiente;
+	private static int codigoSiguiente=1;
 	private Usuario user;
 	
 	public Publicacion(String texto, Usuario user) throws PublicacionException {
