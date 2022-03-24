@@ -14,7 +14,7 @@ public abstract class Publicacion implements Valorable ,Comparable<Publicacion> 
 	
 	public Publicacion(String texto, Usuario user) throws PublicacionException {
 		super();
-		try {
+	
 			
 	
 			setTexto(texto);
@@ -22,9 +22,7 @@ public abstract class Publicacion implements Valorable ,Comparable<Publicacion> 
 			this.fechaCreacion= LocalDateTime.now();
 			this.valoracion=0;
 			this.codigo= codigoSiguiente++;
-		} catch (PublicacionException e) {
-			throw new PublicacionException("Error inesperado");
-		}
+		
 	}
 
 	protected String getTexto() throws PublicacionException {
@@ -67,12 +65,16 @@ public abstract class Publicacion implements Valorable ,Comparable<Publicacion> 
 	
 	
 	@Override
-	public void valorar(String valoracion) {
+	public void valorar(String valoracion) throws Exception {
 		if(valoracion ==null) {
 			this.valoracion+=0;
 		}else {
-			
-				this.valoracion+= Valoraciones.valueOf(valoracion.toUpperCase()).getValor();
+				try {
+					this.valoracion+= Valoraciones.valueOf(valoracion.toUpperCase()).getValor();
+
+				} catch (Exception e) {
+					throw new Exception("Valor no aceptado");
+				}
 			
 		}
 		

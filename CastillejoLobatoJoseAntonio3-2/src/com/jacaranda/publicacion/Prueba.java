@@ -6,6 +6,7 @@ public class Prueba {
 
 	public static void main(String[] args) throws PublicacionException {
 		// TODO Auto-generated method stub
+		
 		try {
 			
 		
