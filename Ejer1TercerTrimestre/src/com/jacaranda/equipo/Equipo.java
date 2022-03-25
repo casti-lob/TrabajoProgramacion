@@ -60,13 +60,21 @@ public class Equipo {
 	public Equipo unionEquipo(Equipo other) {
 		Equipo resultado = new Equipo("");
 		for(ALumno a:this.listado) {
-			if(other.listado.contains(a)) {
+			
 				try {
 					resultado.addAlumno(a);
 				} catch (EquipoException e) {
 					e.printStackTrace();
 				}
+			
+		}
+		for(ALumno a:other.listado) {
+			try {
+				resultado.addAlumno(a);
+			} catch (EquipoException e) {
+				e.printStackTrace();
 			}
+		
 		}
 		return resultado;
 	}
