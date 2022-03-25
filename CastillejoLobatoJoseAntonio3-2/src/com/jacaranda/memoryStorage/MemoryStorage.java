@@ -12,8 +12,8 @@ public class MemoryStorage {
 	private static final int NUM_MAXIMO_PUBLICACIONES=50;
 	private int numUsuariosActuales;
 	private int numPublicacionesActuales;
-	private Usuario listaUsuarios[];
-	private Publicacion listaPublicaciones[];
+	private Usuario[] listaUsuarios;
+	private Publicacion[] listaPublicaciones;
 	
 	public MemoryStorage() {
 		super();
