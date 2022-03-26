@@ -2,38 +2,46 @@ package com.jacaranda.utilities;
 
 import java.util.Objects;
 
-public class Pueblo {
+public class Pueblo implements Comparable<Pueblo>{
 	private String nombre;
 	private String codigo;
 	private int numeroHabitantes;
 	private double rentaPerCapita;
 	private double superficie;
 	
-	public Pueblo(String nombre, String codigo, int numeroHabitantes, double rentaPerCapita, double superficie) {
+	public Pueblo(String nombre, String codigo, int numeroHabitantes, double rentaPerCapita, double superficie) throws PuebloException {
 		super();
 		setNombre(nombre);
-		this.codigo = codigo;
-		this.numeroHabitantes = numeroHabitantes;
-		this.rentaPerCapita = rentaPerCapita;
-		this.superficie = superficie;
+		setCodigo(codigo);
+		setNumeroHabitantes(numeroHabitantes);
+		setRentaPerCapita(rentaPerCapita);
+		setSuperficie(superficie);
 	}
 
-	public Pueblo(String nombre, String codigo) {
+	public Pueblo(String nombre, String codigo) throws PuebloException {
 		super();
 		setNombre(nombre);
-		this.codigo = codigo;
+		setCodigo(codigo);
+		this.numeroHabitantes=0;
+		this.rentaPerCapita=0;
+		this.superficie=0;
 	}
 	
-	private void setNombre(String nombre) {
+	private void setNombre(String nombre) throws PuebloException {
+		if (nombre== null) {
+			throw new PuebloException("El nombre no puede ser nulo");
+		}
 		this.nombre= nombre.toUpperCase();
 	}
 
 	private void setCodigo(String codigo) throws PuebloException {
-		
-		if(codigo.length()!=5) {
-			throw new PuebloException("El codigo debe de tener 5 dígitos");
+		if(codigo==null) {
+			throw new PuebloException("El codigo no puede ser nulo");
 		}
-		for(int i=0;i>codigo.length();i++) {
+		else if(codigo.length()!=5) {
+			throw new PuebloException("El codigo debe de tener 5 digitos");
+		}
+		for(int i=0;i<codigo.length();i++) {
 			if(!Character.isDigit(codigo.charAt(i))) {
 				throw new PuebloException("Solo puede tener numeros");
 			}
@@ -45,7 +53,10 @@ public class Pueblo {
 		return numeroHabitantes;
 	}
 
-	public void setNumeroHabitantes(int numeroHabitantes) {
+	public void setNumeroHabitantes(int numeroHabitantes) throws PuebloException {
+		if(numeroHabitantes<1) {
+			throw new PuebloException("El numero de habitantes no puede ser 0 o negativo");
+		}
 		this.numeroHabitantes = numeroHabitantes;
 	}
 
@@ -53,7 +64,10 @@ public class Pueblo {
 		return rentaPerCapita;
 	}
 
-	public void setRentaPerCapita(double rentaPerCapita) {
+	public void setRentaPerCapita(double rentaPerCapita) throws PuebloException {
+		if(rentaPerCapita<0) {
+			throw new PuebloException("No puede ser negativo la renta per capita");
+		}
 		this.rentaPerCapita = rentaPerCapita;
 	}
 
@@ -61,7 +75,10 @@ public class Pueblo {
 		return superficie;
 	}
 
-	public void setSuperficie(double superficie) {
+	public void setSuperficie(double superficie) throws PuebloException {
+		if(superficie<0) {
+			throw new PuebloException("La superficie no puede ser negativa");
+		}
 		this.superficie = superficie;
 	}
 
@@ -90,6 +107,19 @@ public class Pueblo {
 		return Objects.equals(codigo, other.codigo);
 	}
 
+	@Override
+	public int compareTo(Pueblo other) {
+		//Comparamos por nombre(preguntar)
+		
+		return this.nombre.compareTo(other.getNombre());
+	}
+
+	@Override
+	public String toString() {
+		return "Pueblo [nombre=" + nombre + ", codigo=" + codigo + ", numeroHabitantes=" + numeroHabitantes
+				+ ", rentaPerCapita=" + rentaPerCapita + ", superficie=" + superficie + "]";
+	}
+	
 	
 	
 	
