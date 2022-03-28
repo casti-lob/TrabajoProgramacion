@@ -91,32 +91,42 @@ public class Provincia {
 	}
 	
 	public boolean delPueblo(String pueblo) throws ProvinciaException {
-		boolean borrado = false;
+		boolean borrado = false, encontrado=false;
+		if(!pueblos.isEmpty()) {
 		Pueblo a=null;
-		for(Pueblo i: pueblos) {
-			if(i.getNombre().equalsIgnoreCase(pueblo))
-			a=i;
-			//iterator y restar 
+		Iterator<Pueblo> siguiente= pueblos.iterator();
+		while(siguiente.hasNext()||encontrado==false) {
+			a= siguiente.next();
+			if(a.getNombre().equalsIgnoreCase(pueblo)) {
+				pueblos.remove(a);
+				encontrado= true;
+				borrado= true;
+				this.numeroHabitantes -= a.getNumeroHabitantes();
+				this.superficie-= a.getSuperficie();
+		
 		}
-		if(pueblos.remove(a)) {
-			borrado= true;
+		
 		}
+	}
 		return borrado;
 	}
-	
-	
 	public boolean setSuperficie(String pueblo, double superficie) throws ProvinciaException, PuebloException {
 		boolean actualizado= false;
 		double diferencia;
 		if(pueblo== null) {
 			throw new ProvinciaException("El nombre de pueblo no puede ser nulo");
 		}
-		for(Pueblo i:pueblos) {
-			if(i.getNombre().equalsIgnoreCase(pueblo)) {
-				diferencia = superficie-i.getSuperficie();
+		boolean encontrado=false;
+		Iterator<Pueblo> siguiente = pueblos.iterator();
+		Pueblo p =null;
+		while(siguiente.hasNext()||encontrado==false) {
+			p= siguiente.next();
+			if(p.getNombre().equalsIgnoreCase(pueblo)) {
+				diferencia = superficie-p.getSuperficie();
 				
 					this.superficie+=diferencia;
-					i.setSuperficie(superficie);
+					p.setSuperficie(superficie);
+					encontrado= true;
 				}
 				
 				actualizado= true;
@@ -131,12 +141,16 @@ public class Provincia {
 		if(pueblo== null) {
 			throw new ProvinciaException("El nombre de pueblo no puede ser nulo");
 		}
-		for(Pueblo i:pueblos) {
-			if(i.getNombre().equalsIgnoreCase(pueblo)) {
-				diferencia = numeroHabitantes-i.getNumeroHabitantes();
-				
+		boolean encontrado = false;
+		Pueblo p= null;
+		Iterator<Pueblo> siguiente = pueblos.iterator();
+		while(siguiente.hasNext()&& encontrado==false) {
+			p= siguiente.next();
+			if(p.getNombre().equalsIgnoreCase(pueblo)) {
+				diferencia = numeroHabitantes-p.getNumeroHabitantes();
+				encontrado= true;
 					this.numeroHabitantes+=diferencia;
-					i.setNumeroHabitantes(numeroHabitantes);
+					p.setNumeroHabitantes(numeroHabitantes);
 				}
 				
 				actualizado= true;
