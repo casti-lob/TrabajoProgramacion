@@ -109,7 +109,6 @@ public class Pueblo implements Comparable<Pueblo>{
 
 	@Override
 	public int compareTo(Pueblo other) {
-		//Comparamos por nombre(preguntar)
 		
 		return this.nombre.compareTo(other.getNombre());
 	}
