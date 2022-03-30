@@ -46,9 +46,12 @@ public class PaginaWeb {
 	}
 
 
+	
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(url);
+		return Objects.hash(fechaYhora);
 	}
 
 
@@ -61,7 +64,7 @@ public class PaginaWeb {
 		if (getClass() != obj.getClass())
 			return false;
 		PaginaWeb other = (PaginaWeb) obj;
-		return Objects.equals(url, other.url);
+		return Objects.equals(fechaYhora, other.fechaYhora);
 	}
 
 

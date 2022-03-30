@@ -6,8 +6,10 @@ public class pruebas {
 
 	public static void main(String[] args) {
 		try {
-			PaginaWeb a= new PaginaWeb("sdd",null);
-			System.out.println(a);
+			Historial h = new Historial("d");
+			System.out.println(h.addPaginaWeb("ll", LocalDateTime.of(2018, 10, 10, 3, 6)));
+			System.out.println(h.addPaginaWeb("ll", LocalDateTime.of(2018, 9, 10, 3, 8)));
+			System.out.println(h.consultarHistorial());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

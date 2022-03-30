@@ -46,9 +46,7 @@ public class Provincia {
 	
 	public boolean addPueblo(String nombrePueblo,String codigo, int numeroHabitantes, double rentaPerCapita, double superficie) throws ProvinciaException, PuebloException {
 		boolean introducido= false;
-		if(nombrePueblo==null) {
-			throw new ProvinciaException("El nombre del pueblo no puede ser nulo");
-		}
+		
 		codigo= this.codigo+codigo;
 		Pueblo p= new Pueblo(nombrePueblo, codigo, numeroHabitantes, rentaPerCapita, superficie);
 		if(pueblos.contains(p)) {
@@ -69,30 +67,31 @@ public class Provincia {
 	}
 	
 	public String listadoNombresPueblos() throws ProvinciaException {
-		String lista="";
-		if(pueblos.isEmpty()) {
+		StringBuilder lista= new StringBuilder();
+		if(pueblos.size()==0) {
 			throw new ProvinciaException("La provincia no contiene ningun pueblo");
 		}
 		for(Pueblo i:pueblos) {
-			lista+= i.getNombre()+"\n";
+			lista.append( i.toString()+"\n");
 		}
-		return lista;
+		return lista.toString();
 	}
 	
 	public String listadoPueblos() throws ProvinciaException {
-		String lista="";
-		if(pueblos.isEmpty()) {
+		StringBuilder lista= new StringBuilder();
+		if(pueblos.size()==0) {
 			throw new ProvinciaException("La provincia no contiene ningun pueblo");
 		}
 		for(Pueblo i:pueblos) {
-			lista+= i.toString()+"\n";
+			
+			lista.append( i.toString()+"\n");
 		}
-		return lista;
+		return lista.toString();
 	}
 	
 	public boolean delPueblo(String pueblo) throws ProvinciaException {
 		boolean borrado = false, encontrado=false;
-		if(!pueblos.isEmpty()) {
+		if(pueblos.size()!=0) {
 		Pueblo a=null;
 		Iterator<Pueblo> siguiente= pueblos.iterator();
 		while(siguiente.hasNext()||encontrado==false) {
