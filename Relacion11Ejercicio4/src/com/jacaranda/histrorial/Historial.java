@@ -1,17 +1,18 @@
 package com.jacaranda.histrorial;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Historial {
-	private String usuario;
+	
 	private List<PaginaWeb> paginas;
 
-	public Historial(String usuario) {
+	public Historial() {
 		super();
-		this.usuario= usuario;
-		this.paginas = new LinkedList<PaginaWeb>();
+		
+		this.paginas = new ArrayList<PaginaWeb>();
 	}
 	
 	public boolean addPaginaWeb(String url, LocalDateTime fechaYhora) throws PaginaWebException, HistorialException {
@@ -23,7 +24,7 @@ public class Historial {
 		}else {
 			if(paginas.contains(p)) {
 				throw new HistorialException("Pagina repetida");
-			}else if(paginas.get(paginas.size()).getFechaYhora().isAfter(fechaYhora)) {
+			}else if(paginas.get(paginas.size()-1).getFechaYhora().isAfter(fechaYhora)) {
 				throw new HistorialException("La fecha no puede ser anterior al ultimo registro del historial");
 			}else {
 				paginas.add(p);
@@ -45,6 +46,31 @@ public class Historial {
 		}
 		return lista.toString();
 	}
+	public String consultarHistorialUnDia(LocalDateTime dia) {
+		boolean resultado=false;
+		StringBuilder lista = new StringBuilder();
+		if(paginas.size()==0) {
+			lista.append("No hay historial");
+		}else {
+	
+			Iterator<PaginaWeb> siguiente = paginas.iterator();
+			while(siguiente.hasNext()&&!resultado) {
+				PaginaWeb p1= siguiente.next();
+				if(p1.getFechaYhora().equals(dia)) {
+					resultado= true;
+					lista.append(p1);
+				}
+			}
+		}
+		return lista.toString();
+	}
+	
+	public void borrarHistorial() {
+		
+		paginas.clear();
+		
+	}
+	
 	
 
 }

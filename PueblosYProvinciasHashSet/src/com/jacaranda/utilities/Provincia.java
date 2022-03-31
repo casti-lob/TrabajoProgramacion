@@ -68,7 +68,7 @@ public class Provincia {
 	
 	public String listadoNombresPueblos() throws ProvinciaException {
 		StringBuilder lista= new StringBuilder();
-		if(pueblos.size()==0) {
+		if(pueblos.isEmpty()) {
 			throw new ProvinciaException("La provincia no contiene ningun pueblo");
 		}
 		for(Pueblo i:pueblos) {
@@ -79,7 +79,7 @@ public class Provincia {
 	
 	public String listadoPueblos() throws ProvinciaException {
 		StringBuilder lista= new StringBuilder();
-		if(pueblos.size()==0) {
+		if(pueblos.isEmpty()) {
 			throw new ProvinciaException("La provincia no contiene ningun pueblo");
 		}
 		for(Pueblo i:pueblos) {
@@ -91,7 +91,7 @@ public class Provincia {
 	
 	public boolean delPueblo(String pueblo) throws ProvinciaException {
 		boolean borrado = false, encontrado=false;
-		if(pueblos.size()!=0) {
+		if(pueblos.isEmpty()) {
 		Pueblo a=null;
 		Iterator<Pueblo> siguiente= pueblos.iterator();
 		while(siguiente.hasNext()||encontrado==false) {
@@ -158,11 +158,8 @@ public class Provincia {
 	}
 	
 	public int numPueblos() {
-		int num=0;
-		for(Pueblo i: pueblos) {
-			num+=1;
-		}
-		return num;
+		
+		return pueblos.size();
 	}
 	
 	public double getRentaPerCapita() {
