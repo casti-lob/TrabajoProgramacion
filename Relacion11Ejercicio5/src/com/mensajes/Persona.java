@@ -2,6 +2,8 @@ package com.mensajes;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,11 +61,17 @@ public abstract class Persona {
 		}
 		return lista.toString();
 	}
-	/*
-	public String leerBuzonOrdenado() {
-		return Arrays.sort(mensajesRecibidos);
+	
+	public String leerBuzonOrdenado() throws PersonaException {
+		if(mensajesRecibidos.isEmpty()) {
+			throw new PersonaException("No tienes mensajes en el buzon");
+		}
+		Collections.sort(mensajesRecibidos);
+		StringBuilder lista = new StringBuilder();
+		lista.append(mensajesRecibidos+"\n");
+		return lista.toString();
 	}
-	*/
+ 	
 	
 	public boolean borrarMensaje(int numero) throws PersonaException {
 		boolean borrado= false;

@@ -15,10 +15,11 @@ public class Main {
 			System.out.println(p2);
 			System.out.println(p.leerBuzon());
 			System.out.println(p.busquedaFrase("hola"));
-			Alumno a= new Alumno("jj", 5);
+			Alumno a= new Alumno("ana", 5);
 			Alumno a2= new Alumno("j", 18);
 			System.out.println(a.enviarMensaje(p, "jjj"));
-			System.out.println(p);
+			System.out.println(a.enviarMensaje(p, "primero"));
+			System.out.println(p.leerBuzonOrdenado());
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
