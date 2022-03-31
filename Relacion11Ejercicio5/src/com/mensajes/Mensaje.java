@@ -3,19 +3,19 @@ package com.mensajes;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Mensaje {
+public class Mensaje implements Comparable<Mensaje> {
 	private String remitente;
 	private String texto;
 	private LocalDateTime fechaYhora;
 	private int codigo;
 	private static int codigoSiguiente=1;
 	
-	public Mensaje(String remitente, String texto) {
+	public Mensaje(String remitente, String texto) throws MensajeException {
 		super();
-		this.remitente = remitente;
-		this.texto = texto;
+		this.setRemitente(remitente);
+		this.setTexto(texto);
 		this.codigo= codigoSiguiente++;
-		this.fechaYhora= LocalDateTime.now();
+		this.setFechaYhora();
 	}
 
 	public String getRemitente() {
@@ -24,6 +24,26 @@ public class Mensaje {
 
 	public String getTexto() {
 		return texto;
+	}
+	
+
+	private void setRemitente(String remitente) throws MensajeException {
+		if(remitente==null) {
+			throw new MensajeException("El remitente no pouede ser nulo");
+		}
+		this.remitente = remitente;
+	}
+
+	private void setTexto(String texto) throws MensajeException {
+		if(texto==null) {
+			throw new MensajeException("El texto no puede ser nulo");
+		}
+		this.texto = texto;
+	}
+
+	private void setFechaYhora() throws MensajeException {
+		
+		this.fechaYhora = LocalDateTime.now();
 	}
 
 	public LocalDateTime getFechaYhora() {
@@ -59,8 +79,13 @@ public class Mensaje {
 
 	@Override
 	public String toString() {
-		return "Mensaje [remitente=" + remitente + ", texto=" + texto + ", fechaYhora=" + fechaYhora + ", codigo="
-				+ codigo + "]";
+		return "Mensaje "+this.codigo+" De: "+this.remitente+" Texto: "+this.texto+" Fecha y hora "+this.fechaYhora;
+	}
+
+	@Override
+	public int compareTo(Mensaje o) {
+		
+		return this.remitente.compareTo(o.remitente);
 	} 
 	
 	
