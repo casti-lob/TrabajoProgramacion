@@ -68,7 +68,11 @@ public abstract class Persona {
 		}
 		Collections.sort(mensajesRecibidos);
 		StringBuilder lista = new StringBuilder();
-		lista.append(mensajesRecibidos+"\n");
+		for(Mensaje i: mensajesRecibidos) {
+			lista.append(i+"\n");
+		}
+		
+		
 		return lista.toString();
 	}
  	

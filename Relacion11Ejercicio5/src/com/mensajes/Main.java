@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			Profesor p = new Profesor("pepe", 5);
-			Profesor p2 = new Profesor("Lucas", 5);
+			Profesor p2 = new Profesor("lucas", 5);
 			System.out.println(p2.enviarMensaje(p, "hola"));
 			System.out.println(p2.enviarMensaje(p, "pepe hola"));
 			System.out.println(p2.enviarMensaje(p, "aaaa"));
