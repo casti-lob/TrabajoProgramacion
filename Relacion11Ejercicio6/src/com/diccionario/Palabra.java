@@ -1,19 +1,21 @@
 package com.diccionario;
 
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Palabra {
 	private String texto;
-	private List<Significado> listaSignificados;
+	private Set<Significado> listaSignificados;
 	
 	public Palabra(String texto) {
 		super();
 		this.texto = texto;
-		this.listaSignificados = new LinkedList<Significado>();
+		this.listaSignificados = new HashSet<Significado>();
 	}
 
 	public String getTexto() {
@@ -34,10 +36,10 @@ public class Palabra {
 		}
 		return lista.toString();
 	}
-	//añade un significado a la palabra
+	//aï¿½ade un significado a la palabra
 	public void setListaSignificados(String texto) throws SignificadoException, PalabraException {
 		
-		Significado s= new Significado(texto); // creamos el significado y lo añadimos a la lista
+		Significado s= new Significado(texto); // creamos el significado y lo aï¿½adimos a la lista
 		Iterator<Significado> siguiente = this.listaSignificados.iterator();
 		while(siguiente.hasNext()) {
 			Significado s2=siguiente.next();
@@ -69,7 +71,7 @@ public class Palabra {
 
 	@Override
 	public String toString() {
-		return "Palabra [texto=" + texto + "\n Lista Significados: \n" + getListaSignificados() + "]";
+		return "Palabra [texto=" + texto + getListaSignificados() + "]";
 	}
 	
 	
