@@ -48,7 +48,7 @@ public class PalabrasEmpiezan {
 		
 		while(siguiente.hasNext()&&!encontrado) {
 			Integer elemento = listaPalabras.get(siguiente.next());
-			if()
+			if() 
 		}
 	}
 	
