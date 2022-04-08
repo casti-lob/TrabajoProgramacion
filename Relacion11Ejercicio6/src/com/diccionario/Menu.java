@@ -8,6 +8,8 @@ public class Menu {
 			a.addPalabra("andalu", "duerme mucho");
 			a.addPalabra("andalu", "dice eeeee");
 			System.out.println(a.listaPalabras());
+			a.delPalabra("andalu");
+			System.out.println(a.listaPalabras());
 			
 		} catch (Exception e) {
 			

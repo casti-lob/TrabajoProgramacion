@@ -41,12 +41,41 @@ public class PalabrasEmpiezan {
 		}
 	}
 	
-	public String listaPalabras() {
+	private int buscarPosicion(Palabra p) {
+		boolean encontrado = false;
+		int posicion=0, elementoPosicion=0;
+		Iterator<Palabra> siguiente = listaPalabras.iterator();
+		
+		while(siguiente.hasNext()&&!encontrado) {
+			Integer elemento = listaPalabras.get(siguiente.next());
+			if()
+		}
+	}
+	
+	public String listaPalabras() throws PalabrasEmpiezanException {
+		if(listaPalabras.isEmpty()) {
+			throw new PalabrasEmpiezanException("No hay elemento en la lista");
+		}
 		StringBuilder lista = new StringBuilder();
 		for(Palabra i: listaPalabras) {
 			lista.append(i.getTexto()+" "+ i.getListaSignificados());
 		}
 		return lista.toString();
+	}
+	
+	public void delPalabra(String palabra) throws PalabrasEmpiezanException {
+		if(palabra==null) {
+			throw new PalabrasEmpiezanException("La palabra no puede ser nula");
+		}
+		boolean encontrado=false;
+		Iterator<Palabra> siguiente = listaPalabras.iterator();
+		while(siguiente.hasNext()&& !encontrado) {
+			Palabra p = siguiente.next();
+			if(p.getTexto().equals(palabra)) {
+				listaPalabras.remove(p);
+				encontrado= true;
+			}
+		}
 	}
 	
 	@Override
