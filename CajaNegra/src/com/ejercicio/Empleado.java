@@ -55,11 +55,7 @@ public class Empleado {
 	}
 
 	private void setMesesTrabajo(int mesesTrabajo) throws empleadoException {
-		if(mesesTrabajo== 0) {
-			throw new empleadoException("No puede ser nulo los meses");
-
-		
-		}else if(mesesTrabajo<1|| mesesTrabajo>999) {
+		 if(mesesTrabajo<0|| mesesTrabajo>999) {
 			throw new empleadoException("no puede ser menor a 0 o mayor a 999 los meses");
 
 		}
