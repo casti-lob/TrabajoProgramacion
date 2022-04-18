@@ -172,19 +172,19 @@ public class Usuario {
 	}
 	
 	//Preguntar
-	/*
+	
 	public String listaOrdenada() throws UsuarioException {
 		StringBuilder elementos = new StringBuilder();
 		if(lista.isEmpty()) {
 			throw new UsuarioException("No hay elemetos en la lista");
 		}
-		Collections.sort(lista);
+		Collections.sort((List<Elemento>) lista);
 		for(Elemento i :lista) {
 			elementos.append(i+"\n");
 		}
 		return elementos.toString();
 	}
-	*/
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(nombre);
