@@ -1,6 +1,7 @@
 package com.myparticularcollection;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,13 +13,13 @@ import java.util.Set;
 public class Usuario {
 	private String nombre;
 	private String contrasena;
-	private Set<Elemento> lista;
+	private List<Elemento> lista;
 	//Constructor
 	public Usuario(String nombre, String contrasena) throws UsuarioException {
 		super();
 		this.setNombre(nombre);
 		this.setContrasena(contrasena);
-		this.lista= new HashSet<>();
+		this.lista= new ArrayList<Elemento>();
 	}
 	//Metodo para cambiar de contrasena
 	public void ContrasenaNueva(String contrasenaOld, String contrasenaNew ) throws UsuarioException {
@@ -46,7 +47,7 @@ public class Usuario {
 		boolean add = false;
 		Serie s = new Serie(nombre, fechaEstreno, genero, estado, director, capitulos);
 		if(lista.contains(s)) {
-			throw new UsuarioException("La pelicula ya existe");
+			throw new UsuarioException("La serie ya existe");
 		}else {
 			lista.add(s);
 			add= true;
@@ -59,7 +60,7 @@ public class Usuario {
 		boolean add = false;
 		Libro l = new Libro(nombre, fechaEstreno, genero, estado, autor, capitulos);
 		if(lista.contains(l)) {
-			throw new UsuarioException("La pelicula ya existe");
+			throw new UsuarioException("El libro ya existe");
 		}else {
 			lista.add(l);
 			add= true;
@@ -86,16 +87,15 @@ public class Usuario {
 		return add;
 	}
 	/*
-	 * Preguntar como hacer el intance of o separarlo segun su clase
 	public boolean actualizarProgresoElemento(String titulo, int valoracion) throws ElementoException, UsuarioException {
 		boolean add=false;
 		if(!lista.isEmpty()) {
-			Iterator<Elemento> siguiente= this.lista.iterator();
-			while(siguiente.hasNext()||add==false) {
-				Elemento i= siguiente.next();
-				if(i.getNombre().equalsIgnoreCase(titulo)&& (i instanceof Pelicula || i instanceof Serie)) {
-					i.
-					add=true;
+			Iterator<Elemento> siguiente = this.lista.iterator();
+			while(siguiente.hasNext()||add) {
+				Elemento a= siguiente.next();
+				if(a.getNombre().equals(titulo)&& a instanceof Libro){
+					
+					
 				}
 			}
 		
@@ -178,7 +178,7 @@ public class Usuario {
 		if(lista.isEmpty()) {
 			throw new UsuarioException("No hay elemetos en la lista");
 		}
-		Collections.sort((List<Elemento>) lista);
+		Collections.sort(lista);
 		for(Elemento i :lista) {
 			elementos.append(i+"\n");
 		}

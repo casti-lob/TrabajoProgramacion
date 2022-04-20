@@ -80,7 +80,7 @@ public abstract class Elemento implements Comparable<Elemento> {
 	//Comparamos por la valoración del elemento
 	@Override
 	public int compareTo(Elemento o) {
-		return this.valoracion-o.valoracion;
+		return -this.valoracion-o.valoracion;
 	}
 
 	@Override
