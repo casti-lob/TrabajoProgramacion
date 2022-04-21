@@ -8,32 +8,44 @@ public class Modulo {
 	private static int codigoSiguiente=0;
 	private int numHorasSemanales;
 	private int creditos;
-	public Modulo(String nombre, int numHorasSemanales, int creditos) {
+	public Modulo(String nombre, int numHorasSemanales, int creditos) throws ModuloException {
 		super();
-		this.nombre = nombre;
-		this.numHorasSemanales = numHorasSemanales;
-		this.creditos = creditos;
+		this.setNombre(nombre);
+		this.setNumHorasSemanales(numHorasSemanales);
+		this.setCreditos(creditos);
 		this.setCodigo();
 	}
-	public Modulo(String nombre) {
+	public Modulo(String nombre) throws ModuloException {
 		super();
-		this.nombre = nombre;
+		this.setNombre(nombre);
 		this.setCodigo();
 	}
 	
+	private void setNombre(String nombre) throws ModuloException {
+		if(nombre.isBlank()||nombre==null) {
+			throw new ModuloException("El nombre no pede ser nulo o estar vacio");
+		}
+		this.nombre = nombre;
+	}
 	private void setCodigo() {
 		this.codigo= Modulo.codigoSiguiente++;
 	}
 	public int getNumHorasSemanales() {
 		return numHorasSemanales;
 	}
-	public void setNumHorasSemanales(int numHorasSemanales) {
+	public void setNumHorasSemanales(int numHorasSemanales) throws ModuloException {
+		if(numHorasSemanales<1) {
+			throw new ModuloException("Las horas semanales no pueden ser menores que 1");
+		}
 		this.numHorasSemanales = numHorasSemanales;
 	}
 	public int getCreditos() {
 		return creditos;
 	}
-	public void setCreditos(int creditos) {
+	public void setCreditos(int creditos) throws ModuloException {
+		if(creditos<1) {
+			throw new ModuloException("Los creditos no pueden ser menores que 1");
+		}
 		this.creditos = creditos;
 	}
 	public String getNombre() {

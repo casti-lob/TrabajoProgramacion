@@ -9,10 +9,10 @@ public class Nota {
 	private Alumnado alumno;
 	private Modulo modulo;
 	
-	public Nota(double nota, LocalTime fecha, Alumnado alumno, Modulo modulo) {
+	public Nota(double nota, LocalTime fecha, Alumnado alumno, Modulo modulo) throws notaException {
 		super();
-		this.nota = nota;
-		this.fecha = fecha;
+		this.setNota(nota);
+		this.setFecha(fecha);
 		this.alumno = alumno;
 		this.modulo = modulo;
 	}
@@ -21,7 +21,10 @@ public class Nota {
 		return nota;
 	}
 
-	public void setNota(double nota) {
+	public void setNota(double nota) throws notaException {
+		if(nota<0) {
+			throw new notaException("La nota no puede ser menor a 0");
+		}
 		this.nota = nota;
 	}
 
@@ -29,7 +32,10 @@ public class Nota {
 		return fecha;
 	}
 
-	public void setFecha(LocalTime fecha) {
+	public void setFecha(LocalTime fecha) throws notaException {
+		if(fecha==null) {
+			throw new notaException("La fecha no puede ser nula");
+		}
 		this.fecha = fecha;
 	}
 
@@ -40,6 +46,7 @@ public class Nota {
 	public String getModulo() {
 		return modulo.getNombre();
 	}
+	
 
 	@Override
 	public String toString() {
