@@ -19,7 +19,7 @@ public class Usuario {
 		super();
 		this.setNombre(nombre);
 		this.setContrasena(contrasena);
-		this.lista= new ArrayList<Elemento>();
+		this.lista= new ArrayList<>();
 	}
 	//Metodo para cambiar de contrasena
 	public void ContrasenaNueva(String contrasenaOld, String contrasenaNew ) throws UsuarioException {
@@ -87,6 +87,8 @@ public class Usuario {
 		return add;
 	}
 	/*
+	 * en progreso
+	 */
 	public boolean actualizarProgresoElemento(String titulo, int valoracion) throws ElementoException, UsuarioException {
 		boolean add=false;
 		if(!lista.isEmpty()) {
@@ -94,17 +96,17 @@ public class Usuario {
 			while(siguiente.hasNext()||add) {
 				Elemento a= siguiente.next();
 				if(a.getNombre().equals(titulo)&& a instanceof Libro){
-					
+					add=true;
 					
 				}
 			}
-		
+			
 		}else {
 			throw new UsuarioException("La lista esta vacia");
 		}
 		return add;
 	}
-	*/
+	
 	//hacer set get elemento usuario
 	public String getNombre() {
 		return nombre;
