@@ -41,7 +41,7 @@ public class Registro {
 	}
 	
 	
-	public  void crearRegistro(Empleado e) {
+	public  void crearPrima(Empleado e) {
 		if(e.getMesesTrabajo()>=12&& e.getDirectivo()=='+') {
 			this.prima="P1";
 			

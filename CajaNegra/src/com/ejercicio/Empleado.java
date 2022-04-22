@@ -8,6 +8,7 @@ public class Empleado {
 	private int mesesTrabajo;
 	private char directivo;
 	
+	
 	public Empleado(int numEmpleado, String nombreEmpleado, int mesesTrabajo, char directivo) throws empleadoException {
 		super();
 		this.setNumEmpleado(numEmpleado);
@@ -69,7 +70,20 @@ public class Empleado {
 		}
 		this.directivo = directivo;
 	}
-
+	public String crearPrima() {
+		String prima;
+		if(this.mesesTrabajo>=12&& this.directivo=='+') {
+			prima="P1";
+			
+		}else if(this.mesesTrabajo>=12&& this.directivo=='-') {
+			prima="P2";
+		}else if(this.mesesTrabajo<12&& this.directivo=='+') {
+			prima="P3";
+		}else {
+			prima="P4";
+		}
+		return prima;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(numEmpleado);

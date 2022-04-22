@@ -13,16 +13,12 @@ public class Main {
 		
 		try {
 			Empleado e = new Empleado(001, "1234567891",12, '-');
-			introducirRegistro(e);
+			
 			System.out.println(registros);
 			
 		} catch (empleadoException e) {
 			System.out.println(e.getMessage());		}
 	}
-	public static void introducirRegistro(Empleado e) {
-		Registro r= new Registro();
-		r.crearRegistro(e);
-		registros.add(r);
-	}
+	
 	
 }
