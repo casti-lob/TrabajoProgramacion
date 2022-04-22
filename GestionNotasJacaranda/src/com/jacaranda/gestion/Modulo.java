@@ -54,6 +54,9 @@ public class Modulo {
 	public int getCodigo() {
 		return codigo;
 	}
+	public String moduloEscribir() {
+		return this.nombre+","+this.codigo+","+this.numHorasSemanales+","+this.creditos;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(nombre);

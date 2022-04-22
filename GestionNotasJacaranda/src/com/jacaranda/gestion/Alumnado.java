@@ -33,14 +33,9 @@ public class Alumnado {
 	}
 	public void setCorreoE(String correoE) throws AlumnadoException {
 		
-	        Pattern patronEmail = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)(\\.[A-Za-z]{2,})$");
-	   
-	        Matcher mEmail = patronEmail.matcher(correoE.toLowerCase());
-	        if (mEmail.matches()){
+	       
 	        	this.correoE = correoE;
-	        }else {
-	        	throw new AlumnadoException("El correo no es valido");
-	        }
+	        
 		
 		
 	}
@@ -51,10 +46,13 @@ public class Alumnado {
 	private void setDni(String dni) throws AlumnadoException {
 		if(dni.isBlank()||dni==null) {
 			throw new AlumnadoException("El dni no puede ser nulo o estar en blanco");
-		}else if(dni.length()!=9) {
+		}/*else if(dni.length()!=9) {
 			throw new AlumnadoException("El dni tiene que ser de 9 caracteres");
-		}
+		}*/
 		this.dni = dni;
+	}
+	public String aluEscribir() {
+		return this.nombre+","+this.dni+","+this.correoE;
 	}
 	@Override
 	public String toString() {
