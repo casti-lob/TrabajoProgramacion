@@ -51,5 +51,11 @@ public class Pelicula extends Elemento {
 			return super.toString() +", Director: "+this.director+ ", Duracion: "+this.duracion ;
 		}
 		
+		@Override
+		protected void setProgreso(int capitulo) throws Exception {
+			throw new PeliculaException("Una pelicula no tiene capitulos");
+			
+		}
+		
 		
 }

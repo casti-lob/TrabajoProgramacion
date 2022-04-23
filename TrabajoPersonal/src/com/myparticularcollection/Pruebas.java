@@ -20,6 +20,7 @@ public class Pruebas {
 			System.out.println(u.valorarElemento("it", 5));
 			System.out.println(u.addPelicula("AA", LocalDate.now(), "terror", "terminado", "king", 10));
 			System.out.println(u.valorarElemento("AA", 10));
+			System.out.println(u.actualizarProgresoElemento("it",5 ));
 			System.out.println(u.listaOrdenada());
 			
 		} catch( Exception e) {

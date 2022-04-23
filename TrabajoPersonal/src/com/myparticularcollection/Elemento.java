@@ -10,6 +10,7 @@ public abstract class Elemento implements Comparable<Elemento> {
 	private int valoracion;
 	private Estado director;
 	
+	
 	//Constructor
 	public Elemento(String nombre, LocalDate fechaEstreno, String genero, String estado) throws Exception {
 		super();
@@ -76,6 +77,9 @@ public abstract class Elemento implements Comparable<Elemento> {
 		}
 		this.valoracion = valoracion;
 	}
+	//Metodo abstracto
+	protected abstract void setProgreso(int capitulo) throws Exception;
+	
 
 	//Comparamos por la valoración del elemento
 	@Override

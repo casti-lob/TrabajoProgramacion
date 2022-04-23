@@ -15,7 +15,7 @@ public class Serie extends Elemento {
 		this.setDirector(director);
 		this.setCapitulos(capitulos);
 	
-		this.setProgresoSerie(0);//Por defecto comienza con 0 capitulos leidos para que aparezca en estado pendiente
+		this.setProgreso(0);//Por defecto comienza con 0 capitulos leidos para que aparezca en estado pendiente
 		
 	}
 	
@@ -25,14 +25,15 @@ public class Serie extends Elemento {
 		return progresoSerie;
 	}
 
-	public void setProgresoSerie(int progresoSerie) throws Exception {
+	@Override
+	protected void setProgreso(int capitulos) throws Exception {
 		//El progreso de lectura no es acumulativo sino que se va modificando el numero de capitulos leidos
 		if(progresoSerie<0) {
-			throw new SerieException("El progreso de la serie no puede ser menos de 1");
+			throw new LibroException("El progreso de lectura no puede ser menos de 1");
 		}else if(progresoSerie>this.capitulos) {
-			throw new SerieException("El progreso de lectura no puede ser mayor a los capitulos");
+			throw new LibroException("El progreso de lectura no puede ser mayor a los capitulos");
 		}
-		this.progresoSerie = progresoSerie;
+		this.progresoSerie = capitulos;
 		//Por defecto el estado esta pendiente
 		
 		if(this.progresoSerie>0&&this.progresoSerie< this.capitulos) {
@@ -44,7 +45,6 @@ public class Serie extends Elemento {
 			setEstado("PENDIENTE");
 		}
 	}
-
 	
 
 	public String getDirector() {

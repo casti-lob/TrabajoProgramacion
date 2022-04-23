@@ -73,7 +73,7 @@ public class Usuario {
 		boolean add=false;
 		if(!lista.isEmpty()) {
 			Iterator<Elemento> siguiente= this.lista.iterator();
-			while(siguiente.hasNext()||add==false) {
+			while(siguiente.hasNext()&&!add) {
 				Elemento i= siguiente.next();
 				if(i.getNombre().equalsIgnoreCase(titulo)) {
 					i.setValoracion(valoracion);
@@ -89,16 +89,22 @@ public class Usuario {
 	/*
 	 * en progreso
 	 */
-	public boolean actualizarProgresoElemento(String titulo, int valoracion) throws ElementoException, UsuarioException {
+	public boolean actualizarProgresoElemento(String titulo, int capitulosLeidos) throws Exception {
 		boolean add=false;
 		if(!lista.isEmpty()) {
 			Iterator<Elemento> siguiente = this.lista.iterator();
-			while(siguiente.hasNext()||add) {
+			while(siguiente.hasNext()&&!add) {
 				Elemento a= siguiente.next();
-				if(a.getNombre().equals(titulo)&& a instanceof Libro){
+				if(a.getNombre().equalsIgnoreCase(titulo)&& a instanceof Libro){
+					a.setProgreso(capitulosLeidos);
 					add=true;
 					
 				}
+				else if(a.getNombre().equalsIgnoreCase(titulo)&& a instanceof Serie) {
+					a.setProgreso(capitulosLeidos);
+					add=true;
+				}
+				
 			}
 			
 		}else {
@@ -173,7 +179,7 @@ public class Usuario {
 		return elementos.toString();
 	}
 	
-	//Preguntar
+	
 	
 	public String listaOrdenada() throws UsuarioException {
 		StringBuilder elementos = new StringBuilder();

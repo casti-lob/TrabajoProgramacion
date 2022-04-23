@@ -32,7 +32,7 @@ public class Menu {
 					break;
 				
 				}case 5: {
-					
+					System.out.println(listaOrdenada());
 					break;
 				
 				}case 6: {
@@ -51,7 +51,7 @@ public class Menu {
 	}
 	
 	public static void menu() {
-		System.out.println("1. Crear un usuario \n 2.Anadir una pelicula \n 3.Anadir una serie \n 4.Anadir un libro \n 6.Salir" );
+		System.out.println("1. Crear un usuario \n 2.Anadir una pelicula \n 3.Anadir una serie \n 4.Anadir un libro \n 5.Mostrar lista ordenada \n 6.Salir" );
 	}
 	
 	public static int opc() {
@@ -63,28 +63,18 @@ public class Menu {
 	
 	public static boolean crearUsuario() throws UsuarioException, MenuException {
 		String nombre, contrasena;
-		boolean creado=true;//Si no se crea salta una exception
 		System.out.println("Introduzca el nombre de usuario");
 		nombre = teclado.nextLine();
 		System.out.println("Introduzca su contrasena");
 		contrasena= teclado.nextLine();
 		Usuario u= new Usuario(nombre, contrasena);
-		if(listaUsuario.isEmpty()) {
-			listaUsuario.add(u);
-		}else {
-			if(listaUsuario.contains(u)) {
-				throw new MenuException("El usuario ya existe");
-			}else {
-				listaUsuario.add(u);
-			}
-		}
-		return creado;
+		
+		return listaUsuario.add(u);
 	}
 	
 	public static boolean anadirPelicula() throws Exception {
 		String nombre, contrasena;
 		boolean iniciada=false;
-		int posicion;
 		System.out.println("Introduzca el nombre de usuario");
 		nombre = teclado.nextLine();
 		System.out.println("Introduzca la contrasena(tiene que tener una longitud mayor a 3)");
@@ -198,5 +188,27 @@ public class Menu {
 		System.out.println("Introduce los capitulos que tiene");
 		capitulos= Integer.parseInt(teclado.nextLine());
 		u.addLibro(nombre, LocalDate.now(), genero, estado, director, capitulos);
+	}
+	
+	public static String listaOrdenada() throws Exception {
+		String nombre, contrasena,salida = "Usuario no encontrado";
+		boolean iniciada=false;
+		System.out.println("Introduzca el nombre de usuario");
+		nombre = teclado.nextLine();
+		System.out.println("Introduzca la contrasena(tiene que tener una longitud mayor a 3)");
+		contrasena= teclado.nextLine();
+		Iterator<Usuario> siguiente = listaUsuario.iterator();
+		while(siguiente.hasNext()||iniciada==false) {
+			Usuario u = siguiente.next();
+			if(u.getNombre().equals(nombre)&&u.getContrasena().equals(contrasena)) {
+				
+				salida= u.listaOrdenada();
+				iniciada=true;
+				
+			}
+		}
+		
+		
+		return salida;
 	}
 }

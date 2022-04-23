@@ -16,7 +16,7 @@ public class Libro extends Elemento {
 		this.setAutor(autor);
 		this.setCapitulos(capitulos);
 	
-		this.setProgresoLectura(0);//Por defecto comienza con 0 capitulos leidos para que aparezca en estado pendiente
+		this.setProgreso(0);//Por defecto comienza con 0 capitulos leidos para que aparezca en estado pendiente
 		
 	}
 	
@@ -25,15 +25,15 @@ public class Libro extends Elemento {
 	public int getProgresoLectura() {
 		return progresoLectura;
 	}
-
-	public void setProgresoLectura(int progresoLectura) throws Exception {
+	@Override
+	protected void setProgreso(int capitulos) throws Exception {
 		//El progreso de lectura no es acumulativo sino que se va modificando el numero de capitulos leidos
 		if(progresoLectura<0) {
 			throw new LibroException("El progreso de lectura no puede ser menos de 1");
 		}else if(progresoLectura>this.capitulos) {
 			throw new LibroException("El progreso de lectura no puede ser mayor a los capitulos");
 		}
-		this.progresoLectura = progresoLectura;
+		this.progresoLectura = capitulos;
 		//Por defecto el estado esta pendiente
 		
 		if(this.progresoLectura>0&&this.progresoLectura< this.capitulos) {
