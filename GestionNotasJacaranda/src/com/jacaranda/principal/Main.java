@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -45,9 +46,9 @@ public class Main {
 					dni = teclado.nextLine();
 					System.out.println("Introduce el correo");
 					correo = teclado.nextLine();
-					listadoAlumnado.add(new Alumnado(nombre, dni,correo));
-					escribirEnFichero("Fichero//Alumnado.txt");
+					listadoAlumnado.add(new Alumnado(nombre, dni, correo));
 					
+
 					break;
 				}
 				case 2: {
@@ -56,15 +57,57 @@ public class Main {
 					System.out.println("Introduce el nombre del modulo");
 					nombre = teclado.nextLine();
 					System.out.println("Introduce el numero de horas");
-					nHoras= Integer.parseInt(teclado.nextLine());
+					nHoras = Integer.parseInt(teclado.nextLine());
 					System.out.println("Introduce los creditos del modulo");
-					creditos= Integer.parseInt(teclado.nextLine());
+					creditos = Integer.parseInt(teclado.nextLine());
 					listaModulos.add(new Modulo(nombre, nHoras, creditos));
-					escribirModulo("Fichero//Modulo.txt");
+					
 					break;
 				}
 				case 3: {
-					
+					double nota;
+					LocalDate fecha = LocalDate.now();
+					String dni, nombre;
+					boolean encontrado = false;
+					Alumnado aux = null;
+					Modulo aux2 = null;
+
+					System.out.println("Introduce el dni del alumno");
+					dni = teclado.nextLine();
+					System.out.println("Introduce el nombre del modulo");
+					nombre = teclado.nextLine();
+					System.out.println("Introduce la nota");
+					nota = Integer.parseInt(teclado.nextLine());
+					Iterator<Alumnado> siguiente = listadoAlumnado.iterator();
+					while (siguiente.hasNext() && !encontrado) {
+						Alumnado a = siguiente.next();
+						if (a.getDni().equals(dni)) {
+							encontrado = true;
+							aux = a;
+						}
+					}
+					encontrado = false;
+					Iterator<Modulo> siguiente2 = listaModulos.iterator();
+					while (siguiente.hasNext() && !encontrado) {
+						Modulo a2 = siguiente2.next();
+						if (a2.getNombre().equals(nombre)) {
+							encontrado = true;
+							aux2 = a2;
+						}
+
+					}
+
+					boolean notaRepetida = false;
+					Nota n = new Nota(nota, fecha, aux, aux2);
+					for (Nota i : listaNota) {
+						if (i.equals(n)) {
+							notaRepetida = true;
+						}
+					}
+					if (notaRepetida == false) {
+						listaNota.add(n);
+					}
+
 					break;
 				}
 				case 4: {
@@ -81,7 +124,8 @@ public class Main {
 				}
 				case 6: {
 					// Escribir los datos que hay en memoria en el fichero
-					
+					escribirEnFichero("Fichero//Alumnado.txt");
+					escribirModulo("Fichero//Modulo.txt");
 					break;
 				}
 
@@ -98,46 +142,28 @@ public class Main {
 		System.out.println(
 				"1. Alta alumnado\n2.Alta modulo\n3.Registrar nota\n4.Listar notas todos los alumnos\n5.Listar todos los alumnos\n6.Salir");
 	}
-/*
-	public static void altaAlumno() throws AlumnadoException {
-		String nombre, dni, correo;
-		System.out.println("Introduce el nombre");
-		nombre = teclado.nextLine();
-		System.out.println("Introduce el dni");
-		dni = teclado.nextLine();
-		System.out.println("Introduce el correo");
-		correo = teclado.nextLine();
-		Alumnado a = new Alumnado(nombre, dni,correo);
-		if (listadoAlumnado.isEmpty()) {
-			listadoAlumnado.add(a);
-			escribirEnFichero("Fichero//Alumnado.txt");
-		} else {
-			boolean add = false;
-			Iterator<Alumnado> siguiente = listadoAlumnado.iterator();
-			while (siguiente.hasNext() || add) {
-				Alumnado i = siguiente.next();
-				if (i.equals(a)) {
-					add = true;
-					escribirEnFichero("Fichero//Alumnado.txt");
-				}
-			}
-			if (add == false) {
-				listadoAlumnado.add(a);
-				
-				
-			}
-		}
-	}
-	*/
+
 	/*
-	public static void altaAsignatura() throws ModuloException {
-		String nombre;
-		System.out.println("Introduce el nombre");
-		nombre = teclado.nextLine();
-		Modulo m = new Modulo(nombre);
-		// listaModulos.add(m);
-	}
-	*/
+	 * public static void altaAlumno() throws AlumnadoException { String nombre,
+	 * dni, correo; System.out.println("Introduce el nombre"); nombre =
+	 * teclado.nextLine(); System.out.println("Introduce el dni"); dni =
+	 * teclado.nextLine(); System.out.println("Introduce el correo"); correo =
+	 * teclado.nextLine(); Alumnado a = new Alumnado(nombre, dni,correo); if
+	 * (listadoAlumnado.isEmpty()) { listadoAlumnado.add(a);
+	 * escribirEnFichero("Fichero//Alumnado.txt"); } else { boolean add = false;
+	 * Iterator<Alumnado> siguiente = listadoAlumnado.iterator(); while
+	 * (siguiente.hasNext() || add) { Alumnado i = siguiente.next(); if
+	 * (i.equals(a)) { add = true; escribirEnFichero("Fichero//Alumnado.txt"); } }
+	 * if (add == false) { listadoAlumnado.add(a);
+	 * 
+	 * 
+	 * } } }
+	 */
+	/*
+	 * public static void altaAsignatura() throws ModuloException { String nombre;
+	 * System.out.println("Introduce el nombre"); nombre = teclado.nextLine();
+	 * Modulo m = new Modulo(nombre); // listaModulos.add(m); }
+	 */
 	public static void leerFichero(String nombreFichero) throws AlumnadoException {
 		String linea;
 		try {
@@ -169,19 +195,20 @@ public class Main {
 		try {
 			FileWriter flujoEscritura = new FileWriter(nombre);
 			PrintWriter filtroEscritura = new PrintWriter(flujoEscritura);
-			//proceso el fichero
-			for(Alumnado alu:listadoAlumnado) {
-				
+			// proceso el fichero
+			for (Alumnado alu : listadoAlumnado) {
+
 				filtroEscritura.println(alu.aluEscribir());
-		
+
 			}
-			//fin del proceso
+			// fin del proceso
 			filtroEscritura.close();
 			flujoEscritura.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
+
 	public static void leerModulo(String nombreFichero) throws NumberFormatException, ModuloException {
 		String linea;
 		try {
@@ -193,7 +220,7 @@ public class Main {
 				// proceso la linea que acabo de leer
 				String[] campos = linea.split(",");
 
-				Modulo mod = new Modulo(campos[0], Integer.parseInt(campos[2]),Integer.parseInt(campos[3]));
+				Modulo mod = new Modulo(campos[0], Integer.parseInt(campos[2]), Integer.parseInt(campos[3]));
 				listaModulos.add(mod);
 
 				// Leo otra linea
@@ -207,18 +234,38 @@ public class Main {
 			System.out.println(e.getMessage());
 		}
 	}
+
 	private static void escribirModulo(String nombre) {
 		String cadena;
 		try {
 			FileWriter flujoEscritura = new FileWriter(nombre);
 			PrintWriter filtroEscritura = new PrintWriter(flujoEscritura);
-			//proceso el fichero
-			for(Modulo mod:listaModulos) {
-				
+			// proceso el fichero
+			for (Modulo mod : listaModulos) {
+
 				filtroEscritura.println(mod.moduloEscribir());
-		
+
 			}
-			//fin del proceso
+			// fin del proceso
+			filtroEscritura.close();
+			flujoEscritura.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	private static void escribirNota(String nombre) {
+		String cadena;
+		try {
+			FileWriter flujoEscritura = new FileWriter(nombre);
+			PrintWriter filtroEscritura = new PrintWriter(flujoEscritura);
+			// proceso el fichero
+			for (Nota mod : listaNota) {
+
+				filtroEscritura.println(mod.moduloEscribir());
+
+			}
+			// fin del proceso
 			filtroEscritura.close();
 			flujoEscritura.close();
 		} catch (IOException e) {

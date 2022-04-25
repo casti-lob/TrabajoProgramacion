@@ -1,15 +1,17 @@
 package com.jacaranda.gestion;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
 public class Nota {
 	private double nota;
-	private LocalTime fecha;
+	private LocalDate fecha;
 	private Alumnado alumno;
 	private Modulo modulo;
 	
-	public Nota(double nota, LocalTime fecha, Alumnado alumno, Modulo modulo) throws notaException {
+	public Nota(double nota, LocalDate fecha, Alumnado alumno, Modulo modulo) throws notaException {
 		super();
 		this.setNota(nota);
 		this.setFecha(fecha);
@@ -28,11 +30,11 @@ public class Nota {
 		this.nota = nota;
 	}
 
-	public LocalTime getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalTime fecha) throws notaException {
+	public void setFecha(LocalDate fecha) throws notaException {
 		if(fecha==null) {
 			throw new notaException("La fecha no puede ser nula");
 		}
