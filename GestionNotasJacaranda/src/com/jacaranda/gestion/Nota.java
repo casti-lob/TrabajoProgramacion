@@ -49,7 +49,9 @@ public class Nota {
 		return modulo.getNombre();
 	}
 	
-
+	public String notaEscribir() {
+		return this.getAlumno()+","+this.getModulo()+","+this.fecha+","+this.nota;
+	}
 	@Override
 	public String toString() {
 		return "Nota [nota=" + nota + ", fecha=" + fecha + ", alumno=" + alumno + ", modulo=" + modulo + "]";

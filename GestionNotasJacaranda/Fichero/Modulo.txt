@@ -1,3 +1,4 @@
 mates,0,10,11
-tete,1,50,100
-cosas de la vida,2,20,60
+bbdd,1,88,475
+tete,2,50,100
+cosas de la vida,3,20,60
