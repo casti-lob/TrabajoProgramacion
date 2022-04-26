@@ -30,9 +30,9 @@ public class Main {
 
 	public static void main(String[] args) throws AlumnadoException, NumberFormatException, ModuloException, notaException {
 		int opc;
-		leerFichero("Fichero\\Alumnado.txt");
-		leerModulo("Fichero\\Modulo.txt");
-		leerNota("Fichero\\Notas.txt");
+		leerFichero("Fichero//Alumnado.txt");
+		leerModulo("Fichero//Modulo.txt");
+		leerNota("Fichero//Notas.txt");
 		do {
 
 			muestraMenu();
@@ -127,9 +127,9 @@ public class Main {
 				}
 				case 6: {
 					// Escribir los datos que hay en memoria en el fichero
-					escribirEnFichero("Fichero\\Alumnado.txt");
-					escribirModulo("Fichero\\Modulo.txt");
-					escribirNota("Fichero\\Notas.txt");
+					escribirEnFichero("Fichero//Alumnado.txt");
+					escribirModulo("Fichero//Modulo.txt");
+					escribirNota("Fichero//Notas.txt");
 					break;
 				}
 
