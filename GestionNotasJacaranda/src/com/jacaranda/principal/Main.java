@@ -295,7 +295,9 @@ public class Main {
 				if(valoresValidos) {
 					listaNota.add(not);
 				}
-				
+				else {
+					System.out.println("");//preguntar a inma hacerca del issu
+				}
 				
 					
 

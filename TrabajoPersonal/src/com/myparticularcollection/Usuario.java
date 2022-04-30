@@ -31,9 +31,18 @@ public class Usuario {
 	}
 	
 	public boolean addPelicula(String nombre, LocalDate fechaEstreno, String genero, String estado, String director,double duracion) throws Exception {
-		boolean add = false;
+		boolean add = false, encontrado=false;
+		
 		Pelicula p = new Pelicula(nombre, fechaEstreno, genero, estado, director, duracion);
-		if(lista.contains(p)) {
+		
+		Iterator<Elemento>siguiente= this.lista.iterator();
+		while(siguiente.hasNext()&&!encontrado) {
+			Elemento i = siguiente.next();
+			if(i.getNombre().equalsIgnoreCase(p.getNombre())) {
+				encontrado=true;
+			}
+		}
+		if(encontrado) {
 			throw new UsuarioException("La pelicula ya existe");
 		}else {
 			lista.add(p);
@@ -44,9 +53,16 @@ public class Usuario {
 	}
 	
 	public boolean addSerie(String nombre, LocalDate fechaEstreno, String genero, String estado, String director,int capitulos) throws Exception {
-		boolean add = false;
+		boolean add = false,encontrado=false;
 		Serie s = new Serie(nombre, fechaEstreno, genero, estado, director, capitulos);
-		if(lista.contains(s)) {
+		Iterator<Elemento>siguiente= this.lista.iterator();
+		while(siguiente.hasNext()&&!encontrado) {
+			Elemento i = siguiente.next();
+			if(i.getNombre().equalsIgnoreCase(s.getNombre())) {
+				encontrado=true;
+			}
+		}
+		if(encontrado) {
 			throw new UsuarioException("La serie ya existe");
 		}else {
 			lista.add(s);
@@ -57,9 +73,16 @@ public class Usuario {
 	}
 	
 	public boolean addLibro(String nombre, LocalDate fechaEstreno, String genero, String estado, String autor,int capitulos) throws Exception {
-		boolean add = false;
+		boolean add = false, encontrado= false;
 		Libro l = new Libro(nombre, fechaEstreno, genero, estado, autor, capitulos);
-		if(lista.contains(l)) {
+		Iterator<Elemento>siguiente= this.lista.iterator();
+		while(siguiente.hasNext()&&!encontrado) {
+			Elemento i = siguiente.next();
+			if(i.getNombre().equalsIgnoreCase(l.getNombre())) {
+				encontrado=true;
+			}
+		}
+		if(encontrado) {
 			throw new UsuarioException("El libro ya existe");
 		}else {
 			lista.add(l);

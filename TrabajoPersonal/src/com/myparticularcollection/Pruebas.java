@@ -13,15 +13,8 @@ public class Pruebas {
 			System.out.println(p);
 			*/
 			Usuario u = new Usuario("JDLA", "dlasdfjla");
-			System.out.println(u.addPelicula("it", LocalDate.now(), "terror", "terminado", "king", 10));
-			System.out.println(u.addSerie("it", LocalDate.now(), "terror", "terminado", "king", 10));
-		
-			System.out.println(u.addLibro("it", LocalDate.now(), "terror", "terminado", "king", 10));
-			System.out.println(u.valorarElemento("it", 5));
-			System.out.println(u.addPelicula("AA", LocalDate.now(), "terror", "terminado", "king", 10));
-			System.out.println(u.valorarElemento("AA", 10));
-			System.out.println(u.actualizarProgresoElemento("it",5 ));
-			System.out.println(u.listaOrdenada());
+			System.out.println(u.addLibro("it", LocalDate.now(), "terror", "pendiente", "ddd", 120));
+			System.out.println(u.addPelicula("it", LocalDate.now(),"terror", "pendiente", "ddd",10));
 			
 		} catch( Exception e) {
 			System.out.println(e.getMessage());
