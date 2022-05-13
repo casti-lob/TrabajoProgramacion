@@ -7,11 +7,15 @@ import java.util.Objects;
 public class City {
 	private int city_id;
 	private String city;
+	private int numero;
+	private static int incremento=1;
 	private HashMap<Integer, HashSet<Address>> address;
+	
 	public City(int city_id, String city) {
 		super();
 		this.city_id = city_id;
 		this.city = city;
+		this.numero=incremento++;
 		address = new HashMap<>();
 		
 	}
@@ -25,6 +29,11 @@ public class City {
 	public String getCity() {
 		return city;
 	}
+	
+	public int getNumero() {
+		return numero;
+	}
+	
 	public void setCity(String city) {
 		this.city = city;
 	}
@@ -36,11 +45,15 @@ public class City {
 	public void setAddress(Integer address_id, String addres) {
 
 			Address a = new Address(address_id, addres);
-			HashSet<Address> contentMap =new HashSet<>();
 			
-			contentMap.add(a);
-			address.put(address_id, contentMap);
-		
+			if (addres.isEmpty()) {
+				HashSet<Address>contentMap = new HashSet<>();
+				
+				contentMap.add(a);
+				address.put(address_id, contentMap);
+			
+				contentMap.add(a);
+			}
 		
 	}
 
