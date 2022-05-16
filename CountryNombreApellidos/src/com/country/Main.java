@@ -13,9 +13,9 @@ public class Main {
 	public static HashMap<Integer, Country> countrys;
 	public static void main(String[] args) throws CityException {
 		countrys = new HashMap<>();
-		leerCountry("Fichero\\Country.txt");
-		leerCity("Fichero\\City.txt");
-		leerAddress("Fichero\\Address.txt");
+		leerCountry("Fichero//Country.txt");
+		leerCity("Fichero//City.txt");
+		//leerAddress("Fichero//Address.txt");
 		System.out.println(countrys);
 
 	}
@@ -81,7 +81,7 @@ public class Main {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+	/*
 	public static void leerAddress(String nombreFichero) throws CityException  {
 		String linea;
 		try {
@@ -131,6 +131,6 @@ public class Main {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
-	}
+	}*/
 
 }
