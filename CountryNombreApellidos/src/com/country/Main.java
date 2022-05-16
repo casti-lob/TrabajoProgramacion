@@ -3,20 +3,30 @@ package com.country;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Scanner;
+
+
 
 
 public class Main {
+	public static Scanner teclado = new Scanner(System.in);
 	public static HashMap<Integer, Country> countrys;
 	public static void main(String[] args) throws CityException {
 		countrys = new HashMap<>();
-		leerCountry("Fichero//Country.txt");
-		leerCity("Fichero//City.txt");
+		leerCountry("Fichero\\Country.txt");
+		leerCity("Fichero\\City.txt");
 		//leerAddress("Fichero//Address.txt");
 		System.out.println(countrys);
+		
+		anadirCountry();
 
 	}
 	
@@ -132,5 +142,36 @@ public class Main {
 			System.out.println(e.getMessage());
 		}
 	}*/
+	
+	private static void anadirCountry() {
+		String nombre;
+		System.out.println("Añade nombre");
+		nombre = teclado.nextLine();
+		Country c = new Country(8888, nombre);
+		if(!countrys.containsKey(c.getCountry_id())) {
+			escribirCountry("Fichero\\Country.txt");
+		}
+	}
+	
+	private static void escribirCountry(String nombre) {
+		String cadena;
+		try {
+			FileWriter flujoEscritura = new FileWriter(nombre);
+			PrintWriter filtroEscritura = new PrintWriter(flujoEscritura);
+			// proceso el fichero
+				
+			for(Entry<Integer, Country> entry:countrys.entrySet()){
+				filtroEscritura.println(((Country) entry).formatoCountry());
+			}
 
+				
+
+			
+			// fin del proceso
+			filtroEscritura.close();
+			flujoEscritura.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 }

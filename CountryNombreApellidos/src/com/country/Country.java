@@ -2,6 +2,7 @@ package com.country;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class Country {
 	private int country_id;
@@ -55,7 +56,10 @@ public class Country {
 		
 		
 	}
-
+	public String formatoCountry() {
+		return this.country_id+","+this.country;
+	}
+	
 	@Override
 	public String toString() {
 		return "Country [country_id=" + country_id + ", country=" + country + ", numero=" + numero + ", cities="
