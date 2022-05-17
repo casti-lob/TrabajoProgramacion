@@ -174,6 +174,9 @@ public class Usuario {
 		return elementos.toString();
 	}
 	
+	public List<Elemento> getLista() {
+		return lista;
+	}
 	public String listaSerie() throws UsuarioException {
 		StringBuilder elementos = new StringBuilder();
 		if(lista.isEmpty()) {

@@ -1,5 +1,10 @@
 package com.myparticularcollection;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,8 +16,19 @@ public class Menu {
 	public static Scanner teclado = new Scanner(System.in);
 	public static void main(String[] args) {
 		boolean repetir= true;
+		//Conexión BBDD
 		try {
+			Connection c = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLCDB.localdomain", "proyectoPersonal", "proyectoPersonal");
+			
+			
+			DatabaseMetaData infoBD= c.getMetaData();
+			System.out.println("Base de datos: " + infoBD.getDatabaseProductName());
+			System.out.println("Version: " + infoBD.getDatabaseProductVersion());
+
+		//Interaccion
+		
 			do {
+				try {
 				menu();
 				
 				switch (opc()) {
@@ -20,7 +36,7 @@ public class Menu {
 					System.out.println(crearUsuario());
 					break;
 				}case 2: {
-					System.out.println(anadirPelicula());
+					System.out.println(anadirPelicula(c));
 					break;
 				
 				}case 3: {
@@ -36,6 +52,9 @@ public class Menu {
 					break;
 				
 				}case 6: {
+					
+					break;
+				}case 7: {
 					System.out.println("Hasta pronto");
 					repetir = false;
 					break;
@@ -43,11 +62,16 @@ public class Menu {
 				default:
 					System.out.println("Error inesperado");
 				}
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
 			} while (repetir);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			
+			
+		} catch (Exception ex) {
+			System.out.println(ex);
 		}
-		
+
 	}
 	
 	public static void menu() {
@@ -72,8 +96,9 @@ public class Menu {
 		return listaUsuario.add(u);
 	}
 	
-	public static boolean anadirPelicula() throws Exception {
+	public static boolean anadirPelicula(Connection c) throws Exception {
 		String nombre, contrasena;
+		int opcion;
 		boolean iniciada=false;
 		System.out.println("Introduzca el nombre de usuario");
 		nombre = teclado.nextLine();
@@ -83,17 +108,32 @@ public class Menu {
 		while(siguiente.hasNext()||iniciada==false) {
 			Usuario u = siguiente.next();
 			if(u.getNombre().equals(nombre)&&u.getContrasena().equals(contrasena)) {
+				System.out.println("UNA OPCION : 1 AÑADIR PELI/ 2 BORRAR PELI / 3 MODIFICAR PELI");
+				opcion= Integer.parseInt(teclado.nextLine());
+				switch (opcion) {
+				case 1: {
+					pelicula(u,c);
+					break;
+				}case 2: {
+					deletePelicula(u,c);
+					break;
+				}case 4: {
+					valorarPelicula(u, c);
+					break;
+				}
+				default:
+					System.out.println("Opcion no contemplada");
+				}
 				
-				pelicula(u);
 				iniciada=true;
 				
 			}
 		}
 		return iniciada;
 	}
-	public static void pelicula(Usuario u) throws Exception {
+	public static void pelicula(Usuario u,Connection c) throws Exception {
 		String nombre,genero,estado,director;
-		LocalDate fechaEstreno;
+		LocalDate fechaEstreno=LocalDate.now();
 		double duracion;
 		System.out.println("Introduce el nombre de la pelicula");
 		nombre= teclado.nextLine();
@@ -105,7 +145,63 @@ public class Menu {
 		director= teclado.nextLine();
 		System.out.println("Introduce la duracion");
 		duracion= Double.parseDouble(teclado.nextLine());
-		u.addPelicula(nombre, LocalDate.now(), genero, estado, director, duracion);
+		u.addPelicula(nombre, fechaEstreno, genero, estado, director, duracion);
+		//Procedemos a introducir la pelicula a la bbdd
+		
+		Statement instruccion = (Statement) c.createStatement();
+		String query ="insert into pelicula values('"+nombre+"','"+director+"','"+fechaEstreno+"','"+genero+",0,'"+estado+"',"+duracion+")";
+		if(!instruccion.execute(query)){
+			System.out.println("error en la sentencia: "+query);
+			
+		}else {
+			System.out.println("Registro insertado");
+		}
+		
+	}
+	
+	public static void deletePelicula(Usuario u,Connection c) throws SQLException {
+		String nombre;
+		System.out.println("Introduce la pelicula que quieres eliminar");
+		nombre= teclado.nextLine();
+		for(Elemento i: u.getLista()) {
+			if(i instanceof Pelicula&& i.getNombre().equals(nombre)) {
+				Statement instruccion = (Statement) c.createStatement();
+				String query ="delete from pelicula p where p.nombre ='"+nombre+"'";
+				if(!instruccion.execute(query)){
+					System.out.println("error en la sentencia: "+query);
+					
+				}else {
+					System.out.println("Registro insertado");
+				}
+			}
+		}
+	}
+	
+	public static void valorarPelicula(Usuario u,Connection c) throws SQLException {
+		String nombre;
+		int valoracion;
+		System.out.println("Introduce la pelicula que quieres eliminar");
+		nombre= teclado.nextLine();
+		for(Elemento i: u.getLista()) {
+			if(i instanceof Pelicula&& i.getNombre().equals(nombre)) {
+				System.out.println("Introduce una valoracion");
+				valoracion= Integer.parseInt(teclado.nextLine());
+				try {
+					i.setValoracion(valoracion);
+				} catch (ElementoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Statement instruccion = (Statement) c.createStatement();
+				String query ="update pelicula p set p.valoracion ="+valoracion;
+				if(!instruccion.execute(query)){
+					System.out.println("error en la sentencia: "+query);
+					
+				}else {
+					System.out.println("Registro insertado");
+				}
+			}
+		}
 	}
 	
 	public static boolean anadirSerie() throws Exception {
