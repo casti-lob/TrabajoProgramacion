@@ -3,7 +3,7 @@ package PlataformaOnline.jacaranda.com;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class Temporada {
+public class Temporada implements Comparable<Temporada> {
 	
 	private String nombreTemporada;  // Nombre de las temporada
 	private LinkedList<String> capitulos; // Lista donde etán los nombres de los capítulos de la temporada
@@ -163,6 +163,25 @@ public class Temporada {
 			return false;
 		return true;
 	}
+
+	@Override
+	public int compareTo(Temporada o) {
+		
+		return 1-(int) (this.getNotaMedia()-o.getNotaMedia());
+	}
+
+	public LinkedList<String> getCapitulos() {
+		return capitulos;
+	}
+
+	public String getNombreTemporada() {
+		return nombreTemporada;
+	}
+	
+	public int nCapitulos() {
+		return capitulos.size();
+	}
+	
 	
 	
 }

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 
+
+
 public class Series {
 
 	private HashMap<String, Serie> mapSeries;
@@ -89,7 +91,7 @@ public class Series {
 			nTemporadas= s.numeroTemporadas();
 		}else {
 			throw new SerieException("La serie no existe");
-		}
+		} 
 		return nTemporadas;
 		
 	}
@@ -131,9 +133,32 @@ public class Series {
 	 * @throws SerieException
 	 */
 	public  String listadoOrdenadoSeriesDeUnTema( Tema tema)  throws SerieException {
-		StringBuilder lista = new StringBuilder();
-		//mapSeries
-		return null;
+		ArrayList<Serie>listado =  new ArrayList<Serie>();
+		StringBuilder resultado = new StringBuilder();
+		for(Serie serie:this.mapSeries.values()) {
+			if(serie.getTema().equals(tema)) {
+				listado.add(serie);
+			}
+		}
+		Collections.sort(listado);		
+		for(Serie serie:listado) {
+			resultado.append(serie.toString()+"\n");
+		}
+		return resultado.toString();
+	}
+	public String devuelveValorParaImprimir() {
+		StringBuilder resultado =new StringBuilder();
+		
+		for(Serie serie:this.mapSeries.values()) {
+			resultado.append(serie.getNombreSerie()+","+serie.getAnno()+","+serie.getTema()+"\n");
+		}
+		return resultado.toString();
 	}
 	
+	public String imprimeFicheroSeries() {
+		
+		
+		
+		
+	}
 }

@@ -26,7 +26,7 @@ public class Main {
 			series.annadirCapituloTemporada("This is us", "Empezamos", "Los niños");
 			series.annadirCapituloTemporada("This is us", "Empezamos", "CAsi el final");
 			series.annadirCapituloTemporada("This is us", "Empezamos", "El final");
-			System.out.println(series.escribirSerie());
+			
 			escribirSeries("Fichero//Series.csv");
 		} catch (SerieException e) {
 			// TODO Auto-generated catch block
@@ -36,12 +36,12 @@ public class Main {
 	}
 
 	private static void escribirSeries(String nombre) {
-		String cadena;
+		
 		try {
 			FileWriter flujoEscritura = new FileWriter(nombre);
 			PrintWriter filtroEscritura = new PrintWriter(flujoEscritura);
 			
-			filtroEscritura.println(series.escribirSerie());
+			filtroEscritura.print(series.devuelveValorParaImprimir());
 			
 			filtroEscritura.close();
 			flujoEscritura.close();
@@ -49,5 +49,5 @@ public class Main {
 			System.out.println(e.getMessage());
 		}
 	}
-
+	
 }

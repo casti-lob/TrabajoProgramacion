@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class Serie {
+public class Serie implements Comparable<Serie>{
 	private static final int ANNO_MINIMO = 1900; // Sólo se almacenrará series posteriores a 1900
 	private String nombreSerie; // Nombre de la serie
 	private int anno; //Año de la primera temporada de la serie
@@ -98,11 +98,14 @@ public class Serie {
 	 */
 	public String listadoTemporadasPorNotaMedia() {
 		StringBuilder lista = new StringBuilder();
-		ListadoTemporadasPorNotaMedia orden = new ListadoTemporadasPorNotaMedia();
 		
-		//Collections.sort(orden,temporadas.);
 		
-		return null;
+		Collections.sort(this.temporadas);
+		for(Temporada temporada:this.temporadas) {
+			lista.append(temporada.getNombreTemporada());
+		}
+		
+		return lista.toString();
 	}
 	
 
@@ -113,9 +116,13 @@ public class Serie {
 	 */
 	public String listadoTemporadasPorNumeroDeCapitulos() {
 		StringBuilder lista = new StringBuilder();
-		OrdenCapitulos orden = new OrdenCapitulos();
-		//Collections.sort(orden);
-		return null;
+		OrdenarPorCapitulos aux=new OrdenarPorCapitulos();
+		
+		Collections.sort(this.temporadas,aux);
+		for(Temporada temporada:this.temporadas) {
+			lista.append(temporada.toString());
+		}
+		return lista.toString();
 	}
 
 	
@@ -215,6 +222,20 @@ public class Serie {
 			return false;
 		return true;
 	}
+
+	@Override
+	public int compareTo(Serie o) {
+		
+		return this.anno-o.anno;
+	}
+	
+	public String getInfoTemporadas() {
+		StringBuilder resultado = new StringBuilder();
+		for(Temporada temporadas:this.temporadas) {
+			resultado.append(temporadas.getNombreTemporada()+","+temporadas.nCapitulos());
+		}
+	}
+	
 
 
 	
