@@ -3,6 +3,7 @@ package com.myparticularcollection;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -52,7 +53,7 @@ public class Menu {
 					break;
 				
 				}case 6: {
-					
+					consultarPeliculas(c);
 					break;
 				}case 7: {
 					System.out.println("Hasta pronto");
@@ -75,7 +76,7 @@ public class Menu {
 	}
 	
 	public static void menu() {
-		System.out.println("1. Crear un usuario \n 2.Anadir una pelicula \n 3.Anadir una serie \n 4.Anadir un libro \n 5.Mostrar lista ordenada \n 6.Salir" );
+		System.out.println("1. Crear un usuario \n 2.Interactuar Peliculas \n 3.Anadir una serie \n 4.Anadir un libro \n 5.Mostrar lista ordenada \n 6.Mostrar peliculas en la base de datos\n 7.Salir" );
 	}
 	
 	public static int opc() {
@@ -117,7 +118,7 @@ public class Menu {
 				}case 2: {
 					deletePelicula(u,c);
 					break;
-				}case 4: {
+				}case 3: {
 					valorarPelicula(u, c);
 					break;
 				}
@@ -149,9 +150,9 @@ public class Menu {
 		//Procedemos a introducir la pelicula a la bbdd
 		
 		Statement instruccion = (Statement) c.createStatement();
-		String query ="insert into pelicula values('"+nombre+"','"+director+"','"+fechaEstreno+"','"+genero+",0,'"+estado+"',"+duracion+")";
+		String query ="insert into pelicula values('"+nombre+"','"+director+"',"+null+",'"+genero+"',0,'"+estado+"',"+duracion+")";
 		if(!instruccion.execute(query)){
-			System.out.println("error en la sentencia: "+query);
+			System.out.println("error en la sentencia: "+query);//Da error pero lo inserta
 			
 		}else {
 			System.out.println("Registro insertado");
@@ -166,7 +167,7 @@ public class Menu {
 		for(Elemento i: u.getLista()) {
 			if(i instanceof Pelicula&& i.getNombre().equals(nombre)) {
 				Statement instruccion = (Statement) c.createStatement();
-				String query ="delete from pelicula p where p.nombre ='"+nombre+"'";
+				String query ="DELETE FROM pelicula where nombre ='"+nombre+"'";
 				if(!instruccion.execute(query)){
 					System.out.println("error en la sentencia: "+query);
 					
@@ -180,7 +181,7 @@ public class Menu {
 	public static void valorarPelicula(Usuario u,Connection c) throws SQLException {
 		String nombre;
 		int valoracion;
-		System.out.println("Introduce la pelicula que quieres eliminar");
+		System.out.println("Introduce la pelicula que quieres modificar");
 		nombre= teclado.nextLine();
 		for(Elemento i: u.getLista()) {
 			if(i instanceof Pelicula&& i.getNombre().equals(nombre)) {
@@ -193,7 +194,7 @@ public class Menu {
 					e.printStackTrace();
 				}
 				Statement instruccion = (Statement) c.createStatement();
-				String query ="update pelicula p set p.valoracion ="+valoracion;
+				String query ="update pelicula p set p.VALORACION ="+valoracion;//Me modifica todas las pelis
 				if(!instruccion.execute(query)){
 					System.out.println("error en la sentencia: "+query);
 					
@@ -306,5 +307,16 @@ public class Menu {
 		
 		
 		return salida;
+	}
+	
+	public static void consultarPeliculas(Connection c) throws SQLException {
+		Statement instruccion = c.createStatement();
+		
+		ResultSet resultado = instruccion.executeQuery("Select * from pelicula");//no muestra datos
+		System.out.println(resultado);
+		while (resultado.next()) {
+			System.out.println(resultado.getString("nif"));
+		}
+		
 	}
 }
