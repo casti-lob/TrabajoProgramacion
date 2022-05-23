@@ -17,7 +17,7 @@ public class Menu {
 	public static Scanner teclado = new Scanner(System.in);
 	public static void main(String[] args) {
 		boolean repetir= true;
-		//Conexión BBDD
+		//Conexiï¿½n BBDD
 		try {
 			Connection c = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/ORCLCDB.localdomain", "proyectoPersonal", "proyectoPersonal");
 			
@@ -109,7 +109,7 @@ public class Menu {
 		while(siguiente.hasNext()||iniciada==false) {
 			Usuario u = siguiente.next();
 			if(u.getNombre().equals(nombre)&&u.getContrasena().equals(contrasena)) {
-				System.out.println("UNA OPCION : 1 AÑADIR PELI/ 2 BORRAR PELI / 3 MODIFICAR PELI");
+				System.out.println("UNA OPCION : 1 Aï¿½ADIR PELI/ 2 BORRAR PELI / 3 MODIFICAR PELI");
 				opcion= Integer.parseInt(teclado.nextLine());
 				switch (opcion) {
 				case 1: {
@@ -151,7 +151,8 @@ public class Menu {
 		
 		Statement instruccion = (Statement) c.createStatement();
 		String query ="insert into pelicula values('"+nombre+"','"+director+"',"+null+",'"+genero+"',0,'"+estado+"',"+duracion+")";
-		if(!instruccion.execute(query)){
+		
+		if(instruccion.executeUpdate(query)==0){
 			System.out.println("error en la sentencia: "+query);//Da error pero lo inserta
 			
 		}else {
@@ -168,7 +169,7 @@ public class Menu {
 			if(i instanceof Pelicula&& i.getNombre().equals(nombre)) {
 				Statement instruccion = (Statement) c.createStatement();
 				String query ="DELETE FROM pelicula where nombre ='"+nombre+"'";
-				if(!instruccion.execute(query)){
+				if(instruccion.executeUpdate(query)==0){
 					System.out.println("error en la sentencia: "+query);
 					
 				}else {
@@ -195,7 +196,7 @@ public class Menu {
 				}
 				Statement instruccion = (Statement) c.createStatement();
 				String query ="update pelicula p set p.VALORACION ="+valoracion;//Me modifica todas las pelis
-				if(!instruccion.execute(query)){
+				if(instruccion.executeUpdate(query)==0){
 					System.out.println("error en la sentencia: "+query);
 					
 				}else {
@@ -311,11 +312,19 @@ public class Menu {
 	
 	public static void consultarPeliculas(Connection c) throws SQLException {
 		Statement instruccion = c.createStatement();
+		String sentencia ="Select * from pelicula";
 		
-		ResultSet resultado = instruccion.executeQuery("Select * from pelicula");//no muestra datos
-		System.out.println(resultado);
+		ResultSet resultado = instruccion.executeQuery(sentencia);//no muestra datos
+		
 		while (resultado.next()) {
-			System.out.println(resultado.getString("nif"));
+			System.out.println(resultado.getString(1));
+			System.out.println(resultado.getString(2));
+			System.out.println(resultado.getString(3));
+			System.out.println(resultado.getString(4));
+			System.out.println(resultado.getString(5));
+			System.out.println(resultado.getString(6));
+			System.out.println(resultado.getString(7));
+			System.out.println("-------------------------------");
 		}
 		
 	}

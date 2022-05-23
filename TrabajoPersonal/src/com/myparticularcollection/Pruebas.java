@@ -8,7 +8,7 @@ public class Pruebas {
 		try {
 			Libro l = new Libro("sdf", LocalDate.now(), "terror", "pendiente", "sdd", 20);
 				System.out.println(l);
-				l.ge
+				//l.ge
 		} catch( Exception e) {
 			System.out.println(e.getMessage());
 		} 
