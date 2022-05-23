@@ -1,7 +1,9 @@
 package com.country;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 public class Country {
@@ -9,13 +11,13 @@ public class Country {
 	private String country;
 	private int numero;
 	private static int incremento=1;
-	private HashMap<Integer, HashSet<City>> cities;
+	private List<City> cities;
 	
 	public Country(int country_id, String country) {
 		super();
 		this.country_id = country_id;
 		this.country = country;
-		cities= new HashMap<>();	
+		cities= new ArrayList<>();	
 		this.numero=incremento++;
 	}
 
@@ -39,19 +41,17 @@ public class Country {
 		this.country = country;
 	}
 
-	public HashMap<Integer, HashSet<City>> getCities() {
-		return cities;
+	public String getCities() {
+		return cities.toString();
 	}
 
-	public void setCities(Integer idCity, String city) {
-		City c = new City(idCity, city);
-		if (cities.isEmpty()) {
-			HashSet<City>contentMap = new HashSet<>();
-			
-			contentMap.add(c);
-			cities.put(idCity, contentMap);
+	public void setCities(City c) throws CityException {
+	
+		if (!cities.contains(c)) {
+			cities.add(c);
 		
-			contentMap.add(c);
+		}else {
+			throw new CityException("Ya existe la ciudad");
 		}
 		
 		

@@ -1,7 +1,9 @@
 package com.country;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 public class City {
@@ -9,14 +11,14 @@ public class City {
 	private String city;
 	private int numero;
 	private static int incremento=1;
-	private HashMap<Integer, HashSet<Address>> address;
+	private List<Address> address;
 	
 	public City(int city_id, String city) {
 		super();
 		this.city_id = city_id;
 		this.city = city;
 		this.numero=incremento++;
-		address = new HashMap<>();
+		address = new ArrayList<Address>();
 		
 	}
 	
@@ -38,23 +40,17 @@ public class City {
 		this.city = city;
 	}
 
-	public HashMap<Integer, HashSet<Address>> getAddress() {
+	public List<Address> getAddress() {
 		return address;
 	}
 
-	public void setAddress(Integer address_id, String addres) {
-
-			Address a = new Address(address_id, addres);
+	public void setAddress(Address a) throws CityException {
 			
-			if (addres.isEmpty()) {
-				HashSet<Address>contentMap = new HashSet<>();
-				
-				contentMap.add(a);
-				address.put(address_id, contentMap);
-			
-				contentMap.add(a);
+			if(address.contains(a)) {
+				throw new CityException("Dirección ya creada");
+			}else {
+				address.add(a);
 			}
-		
 	}
 
 	@Override
