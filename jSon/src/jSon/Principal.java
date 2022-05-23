@@ -34,7 +34,7 @@ public class Principal {
 		catch(IOException e){
 		System.out.println( e.getMessage());
 		}
-		resultado.toString();
+		return resultado.toString();
 	}
 
 }
