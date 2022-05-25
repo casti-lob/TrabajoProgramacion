@@ -116,8 +116,8 @@ public class Main {
 				String[] campos = linea.split(",");
 				boolean encontrado = false;
 				Address a = new Address(Integer.parseInt(campos[0]),campos[1]);
-				Iterator<City> siguiente = city.iterator();
-				while(siguiente.hasNext()&&!encontrado) {
+				Iterator<City> siguiente= city.iterator();
+				while(siguiente.hasNext()) {
 					City c = siguiente.next();
 					if(c.getCity_id()==Integer.parseInt(campos[4])) {
 						try {
@@ -128,6 +128,8 @@ public class Main {
 						}
 					}
 				}
+					
+				
 			}
 				// Leo otra linea
 				linea = filtroLectura.readLine();

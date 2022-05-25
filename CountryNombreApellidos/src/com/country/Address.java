@@ -6,15 +6,14 @@ public class Address {
 	
 	private int address_id;
 	private String address;
-	private int numero;
-	private static int incremento=1;
+	
 	
 	
 	public Address(int address_id, String address) {
 		super();
 		this.address_id = address_id;
 		this.address = address;
-		this.numero=incremento++;
+		
 	}
 
 
@@ -22,9 +21,7 @@ public class Address {
 		return address_id;
 	}
 
-	public int getNumero() {
-		return numero;
-	}
+	
 	public void setAddress_id(int address_id) {
 		this.address_id = address_id;
 	}
