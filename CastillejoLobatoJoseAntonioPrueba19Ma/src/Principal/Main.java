@@ -29,9 +29,9 @@ public class Main {
 			series.annadirCapituloTemporada("This is us", "Empezamos", "CAsi el final");
 			series.annadirCapituloTemporada("This is us", "Empezamos", "El final");
 			
-			escribirSeries("Fichero\\Series.txt");
-			series.escribirFicheroTemporada("Fichero\\Temporada.txt");
-			series.escribirFicheroCapitulos("Fichero\\Capitulos.txt");
+			escribirSeries("Fichero\\Series.csv");
+			series.escribirFicheroTemporada("Fichero\\Temporada.csv");
+			series.escribirFicheroCapitulos("Fichero\\Capitulos.csv");
 			
 			Temporada t = new Temporada("TTT");
 			Serie s = new Serie(null, 1996, null);

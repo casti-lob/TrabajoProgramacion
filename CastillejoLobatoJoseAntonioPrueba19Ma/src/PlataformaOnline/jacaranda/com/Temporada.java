@@ -153,7 +153,7 @@ public class Temporada implements Comparable<Temporada> {
 	@Override
 	public int compareTo(Temporada o) {
 		
-		return 1-(int) (this.getNotaMedia()-o.getNotaMedia());
+		return (int) -(this.getNotaMedia()-o.getNotaMedia());
 	}
 
 	public LinkedList<String> getCapitulos() {
