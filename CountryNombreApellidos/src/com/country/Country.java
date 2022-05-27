@@ -41,19 +41,18 @@ public class Country {
 		this.country = country;
 	}
 
-	public String getCities() {
-		return cities.toString();
+	public List<City> getCities() {
+		return cities;
 	}
 
-	public void setCities(City c) throws CityException {
-	
-		if (!cities.contains(c)) {
+	public boolean setCities(City c) throws CityException {
+		boolean existe=false;
+		if (cities.contains(c)) {
 			cities.add(c);
-		
-		}else {
-			throw new CityException("Ya existe la ciudad");
+			existe= true;
 		}
-		
+
+		return existe;
 		
 	}
 	public String formatoCountry() {

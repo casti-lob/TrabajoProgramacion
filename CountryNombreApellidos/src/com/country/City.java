@@ -44,13 +44,15 @@ public class City {
 		return address;
 	}
 
-	public void setAddress(Address a) throws CityException {
-			
+	public boolean setAddress(Address a) throws CityException {
+			boolean existe=false;
 			if(address.contains(a)) {
-				throw new CityException("Dirección ya creada");
+				existe=true;
 			}else {
 				address.add(a);
+				
 			}
+			return existe;
 	}
 
 	@Override
