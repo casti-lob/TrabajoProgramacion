@@ -1,6 +1,7 @@
 package com.jacaranda.tamano;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,8 +54,24 @@ public class Municipio {
 		return "Municipio [descrip=" + descrip + ", datos=" + datos + "]";
 	}
 	
+	public String datosPorAnno(int anno) {
+		boolean encontrado =false;
+		StringBuilder lista = new StringBuilder();
+		int dato=0;
+		Iterator<Datos>siguiente= datos.iterator();
+		while(siguiente.hasNext()&&!encontrado) {
+			Datos d= siguiente.next();
+			if(d.getAno()==anno) {
+				lista.append(this.descrip+" Dato= "+d.getDato()+"\n");
+				encontrado=true;
+			}
+			
+		}
+		return lista.toString();
+	}
 	
 	
+		
 	
 	
 	

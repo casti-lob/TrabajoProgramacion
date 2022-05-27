@@ -1,6 +1,7 @@
 package com.jacaranda.tamano;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,8 +54,27 @@ public class Comunidad {
 		return "Comunidad [nombre=" + nombre + ", listMunicipio=" + listMunicipio + "]";
 	}
 	
-	
-	
-
-	
+	public String obtenerMunicipioPorAno(int anno) {
+		StringBuilder lista = new StringBuilder();
+		for(Municipio i:listMunicipio) {
+			lista.append(i.datosPorAnno(anno));
+		}
+		return lista.toString();
+	}
+	/*
+	public String datosComunidadAno(String municipio,int ano) {
+		boolean encontrado = false;
+		StringBuilder lista = new StringBuilder();
+		Iterator<Municipio>siguiente=listMunicipio.iterator();
+		while(siguiente.hasNext()&&!encontrado) {
+			Municipio m = siguiente.next();
+			if(m.getDescrip().equals(municipio)) {
+				lista.append(m.getDescrip()+m.datosPorAnno(ano));
+				encontrado= true;
+			}
+		}
+		
+		return lista.toString();
+	}
+	*/
 }
