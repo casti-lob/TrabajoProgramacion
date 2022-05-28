@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 public class TamanoMunicipioComunidad {
@@ -73,4 +74,53 @@ public class TamanoMunicipioComunidad {
 		return elementos.toString();
 	}
 	
+	public void anadirDato(String comunidad, String descripcion, int ano, int dato) throws MunicipiosException {
+		boolean encontrado=false;
+		Iterator<Comunidad> siguiente = lista.iterator();
+		while(siguiente.hasNext()&&!encontrado) {
+			Comunidad c = siguiente.next();
+			if(c.getNombre().equals(comunidad)) {
+				try {
+					encontrado=true;
+					c.existeDescripcion(descripcion, ano, dato);
+				} catch (MunicipiosException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		if(!encontrado) {
+			throw new MunicipiosException("La comunidad no existe");
+		}
+	}
+	
+	public String comprobarValores(String comunidad,int ano) {
+		boolean encontrado= false;
+		int valor=0;
+		String resul;
+		Iterator<Comunidad>siguiente=lista.iterator();
+		while(siguiente.hasNext()&&!encontrado) {
+			Comunidad c = siguiente.next();
+			if(c.getNombre().equals(comunidad)) {
+				valor=c.obtenerValores(ano);
+				encontrado= true;
+			}
+		}
+		if(valor==0) {
+			resul="El valor es igual";
+		}else if(valor>0) {
+			resul="El total no esta actualizado se deberian de añadir "+valor+" personas";
+		}else {
+			resul="El total no esta actualizado se deberian de quitar "+valor+" personas";
+
+		}
+		return resul;
+	}
+	
+	public void persistirCambios() {
+		Gson gson = new Gson();
+		String json = gson.toJson(lista);
+		final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+		final String representacionBonita = prettyGson.toJson(lista);
+	}
 }

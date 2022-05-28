@@ -23,6 +23,8 @@ public class Main {
 		int opc=0;
 		int ano=0;
 		String comunidad;
+		String descripcion;
+		int dato;
 		
 		do {
 			menu();
@@ -54,13 +56,43 @@ public class Main {
 				
 				break;
 			case 3:
-				
+				System.out.println("Introduce la comunidad");
+				comunidad= teclado.nextLine();
+				System.out.println("Introduce la descripcion");
+				descripcion= teclado.nextLine();
+				System.out.println("Introduce el año");
+				ano= Integer.parseInt(teclado.nextLine());
+				System.out.println("Introduce el dato");
+				dato=Integer.parseInt(teclado.nextLine());
+				try {
+					t.anadirDato(comunidad, descripcion, ano, dato);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println(e.getMessage());
+				}
 				break;
 			case 4:
-				
+				System.out.println("Introduce la comunidad");
+				comunidad=teclado.nextLine();
+				System.out.println("Introduce el año");
+				ano= Integer.parseInt(teclado.nextLine());
+				System.out.println(t.comprobarValores(comunidad, ano));
 				break;
 			case 5:
-				System.out.println("¿Quieres guardar los datos?");
+				String boleano;
+				String nombre;
+				System.out.println("¿Quieres guardar los datos?(S/N)");
+				boleano= teclado.nextLine();
+				while(!boleano.equalsIgnoreCase("s")&&!boleano.equalsIgnoreCase("n")) {
+					System.out.println("No se aceptan los valores");
+					System.out.println("¿Quieres guardar los datos?(S/N)");
+					boleano= teclado.nextLine();
+				}
+				if(boleano.equalsIgnoreCase("s")) {
+					//System.out.println("Introduce el nombre del fichero");
+					//nombre=teclado.nextLine();
+					t.persistirCambios();
+				}
 				break;
 
 
@@ -100,7 +132,7 @@ public class Main {
 	
 	private static void menu() {
 		System.out.println("1.Mostrar los datos de todas las comunidades por año.\n"
-				+"2.Mostrar los datos de una comunidad y un año."
+				+"2.Mostrar los datos de una comunidad y un año.\n"
 				+"3.Añadir un dato\n"
 				+"4.Comprobar que el valor de Total es la suma de todos los valores\n"
 				+"5.Salir"
@@ -114,6 +146,7 @@ public class Main {
 		}
 		return valido;
 	}
+	
 	
 	
 	

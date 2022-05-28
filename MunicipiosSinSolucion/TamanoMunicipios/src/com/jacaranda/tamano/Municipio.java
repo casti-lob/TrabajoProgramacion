@@ -70,9 +70,31 @@ public class Municipio {
 		return lista.toString();
 	}
 	
-	
+	public void anadirDato(int ano, int dato) {
+		boolean anoEncontrado=false;
+		Iterator<Datos> siguiente=datos.iterator();
+		while(siguiente.hasNext()&&!anoEncontrado) {
+			Datos d = siguiente.next();
+			if(d.getAno()==ano) {
+				d.setDato(dato);
+				anoEncontrado=true;
+			}
+		}
+		if(!anoEncontrado) {
+			Datos nuevoDato = new Datos(ano, dato);
+			datos.add(nuevoDato);
+		}
+	}
 		
-	
+	public int SumaValores(int ano) {
+		int valor=0;
+		for(Datos i:datos) {
+			if(i.getAno()==ano) {
+				valor+=i.getDato();
+			}
+		}
+		return valor;
+	}
 	
 	
 	

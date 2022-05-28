@@ -61,20 +61,41 @@ public class Comunidad {
 		}
 		return lista.toString();
 	}
-	/*
-	public String datosComunidadAno(String municipio,int ano) {
-		boolean encontrado = false;
-		StringBuilder lista = new StringBuilder();
+	
+	public void existeDescripcion(String descripcion,int ano, int dato) throws MunicipiosException {
+		boolean existe=false;
+		Iterator<Municipio>siguiente=listMunicipio.iterator();
+		while(siguiente.hasNext()&&!existe) {
+			Municipio m = siguiente.next();
+			if(m.getDescrip().equals(descripcion)) {
+				existe=true;
+				m.anadirDato(ano, dato);
+			}
+		}
+		if(!existe) {
+			throw new MunicipiosException("La descripcion no existe");
+		}
+	}
+	
+	public int obtenerValores(int anno) {
+		int valorTotal=0;
+		int valorAnos=0;
+		int resul;
+		boolean encontrado=false;
 		Iterator<Municipio>siguiente=listMunicipio.iterator();
 		while(siguiente.hasNext()&&!encontrado) {
 			Municipio m = siguiente.next();
-			if(m.getDescrip().equals(municipio)) {
-				lista.append(m.getDescrip()+m.datosPorAnno(ano));
-				encontrado= true;
+			if(m.getDescrip().equals("Total")) {
+				encontrado=true;
+				valorTotal+= m.SumaValores(anno);
 			}
 		}
 		
-		return lista.toString();
+		for(Municipio i: listMunicipio) {
+			valorAnos+= i.SumaValores(anno);
+		}
+		resul= valorAnos-valorTotal;
+		return resul;
 	}
-	*/
+	
 }
