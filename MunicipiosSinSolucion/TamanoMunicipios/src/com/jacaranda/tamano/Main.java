@@ -3,7 +3,9 @@ package com.jacaranda.tamano;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -89,9 +91,11 @@ public class Main {
 					boleano= teclado.nextLine();
 				}
 				if(boleano.equalsIgnoreCase("s")) {
-					//System.out.println("Introduce el nombre del fichero");
-					//nombre=teclado.nextLine();
-					t.persistirCambios();
+					System.out.println("Introduce el nombre del fichero");
+					nombre=teclado.nextLine();
+					nombre="Fichero//"+nombre+".json";
+					escribirEnFichero(nombre, t.persistirCambios());
+					
 				}
 				break;
 
@@ -147,6 +151,18 @@ public class Main {
 		return valido;
 	}
 	
+	private static void escribirEnFichero(String nombre, String lista) {
+		String cadena;
+		try {
+		FileWriter flujoEscritura=new FileWriter(nombre);
+		PrintWriter filtroEscritura=new PrintWriter(flujoEscritura);
+		filtroEscritura.println(lista);
+		filtroEscritura.close();
+		flujoEscritura.close();
+		} catch (IOException e) {
+		System.out.println(e.getMessage());
+		}
+		}
 	
 	
 	

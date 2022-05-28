@@ -117,10 +117,10 @@ public class TamanoMunicipioComunidad {
 		return resul;
 	}
 	
-	public void persistirCambios() {
-		Gson gson = new Gson();
-		String json = gson.toJson(lista);
-		final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
-		final String representacionBonita = prettyGson.toJson(lista);
+	public String persistirCambios() {
+		Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+		String representacionBonita = prettyGson.toJson(lista);
+		return representacionBonita;
+
 	}
 }
